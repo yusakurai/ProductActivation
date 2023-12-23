@@ -1,4 +1,4 @@
-﻿using ProductActivationService.Entity;
+﻿using ProductActivationService.Entities;
 
 namespace ProductActivationService.Repositories
 {

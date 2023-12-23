@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Data;
-using ProductActivationService.Entity;
+using ProductActivationService.Entities;
 
 namespace ProductActivationService.Repositories
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ProductActivationService.Model;
-using ProductActivationService.Entity;
+using ProductActivationService.Entities;
 
 namespace ProductActivationService.Mapper
 {

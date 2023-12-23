@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Data;
-using ProductActivationService.Entity;
+using ProductActivationService.Entities;
 using ProductActivationService.Services;
 using ProductActivationService.Requests;
 using ProductActivationService.Model;

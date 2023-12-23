@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace ProductActivationService.Entity
+namespace ProductActivationService.Entities
 {
   [Table("customer")]
   [Comment("カスタマー")]

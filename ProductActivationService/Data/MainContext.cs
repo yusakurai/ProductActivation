@@ -1,4 +1,4 @@
-using ProductActivationService.Entity;
+using ProductActivationService.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProductActivationService.Data
