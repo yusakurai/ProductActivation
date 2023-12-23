@@ -1,4 +1,4 @@
-using ProductActivationService.Models;
+using ProductActivationService.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProductActivationService.Data
@@ -8,6 +8,6 @@ namespace ProductActivationService.Data
   /// </summary>
   public class MainContext(DbContextOptions<MainContext> options) : DbContext(options)
   {
-    public DbSet<Customer> Customer { get; set; } = null!;
+    public DbSet<CustomerEntity> Customer { get; set; } = null!;
   }
 }

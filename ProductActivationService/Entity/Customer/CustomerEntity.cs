@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace ProductActivationService.Models
+namespace ProductActivationService.Entity
 {
   [Table("customer")]
-  [Comment("カスタマーテーブル")]
-  public class Customer : BaseEntity
+  [Comment("カスタマー")]
+  public class CustomerEntity : BaseEntity
   {
     [Key]
     [Required]
