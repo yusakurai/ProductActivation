@@ -9,6 +9,12 @@
 | ProductActivationService       | アクティベーション REST サービス |
 | ProductActivationService.Tests | アクティベーション REST テスト   |
 
+## SQL Server Docker コンテナの起動
+
+```bash
+$ docker-compose up -d --build
+```
+
 ## テーブル
 
 - Customer
