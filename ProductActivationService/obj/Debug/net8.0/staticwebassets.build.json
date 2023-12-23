@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "vfF6EKL1loH57ZO76Cwdjvpkp0ZiKj+qlUcIrqdz67s=",
+  "Source": "ProductActivationService",
+  "BasePath": "_content/ProductActivationService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

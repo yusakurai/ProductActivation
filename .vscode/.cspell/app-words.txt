@@ -1,0 +1,18 @@
+# Custom Dictionary Words
+appsettings,
+aspnetcore,
+cobertura,
+datetime,
+dbcontext,
+dtos,
+japaneast,
+learndotnet,
+nvarchar,
+reportgenerator,
+reporttypes,
+rowversion,
+sqlcmd,
+swashbuckle,
+targetdir,
+todoitems,
+xunit

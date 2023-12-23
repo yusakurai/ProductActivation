@@ -1,0 +1,26 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  // スペルチェックから除外する単語をまとめたテキストファイルを指定する
+  "cSpell.customDictionaries": {
+    "app-words": {
+      "name": "app-words",
+      "path": "${workspaceRoot}/.vscode/.cspell/app-words.txt",
+      "description": "Words specific to this application",
+      "addWords": true,
+      "scope": "workspace"
+    },
+    "absolute-words": {
+      "name": "absolute-words",
+      "path": "${workspaceRoot}/.vscode/.cspell/absolute-words.txt",
+      "description": "Absolute Words",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  },
+  // スペルチェックを行わないファイルパスを指定する
+  "cSpell.ignorePaths": [".git", ".github", ".vscode", "bin", "obj"]
+}
