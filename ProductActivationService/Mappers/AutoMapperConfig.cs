@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace ProductActivationService.Mapper
+namespace ProductActivationService.Mappers
 {
   public class AutoMapperConfig
   {
