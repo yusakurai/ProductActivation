@@ -1,4 +1,4 @@
-﻿using ProductActivationService.Model;
+﻿using ProductActivationService.Models;
 
 namespace ProductActivationService.Services
 {

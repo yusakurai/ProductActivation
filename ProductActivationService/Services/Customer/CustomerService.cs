@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Entities;
-using ProductActivationService.Model;
+using ProductActivationService.Models;
 using ProductActivationService.Repositories;
 using static ProductActivationService.Services.ICustomerService;
 

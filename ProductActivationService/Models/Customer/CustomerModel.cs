@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ProductActivationService.Model
+namespace ProductActivationService.Models
 {
   [SwaggerSchema(Title = "Customer")]
   public class CustomerModel

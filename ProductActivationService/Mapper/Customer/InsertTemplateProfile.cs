@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ProductActivationService.Model;
+using ProductActivationService.Models;
 using ProductActivationService.Entities;
 
 namespace ProductActivationService.Mapper

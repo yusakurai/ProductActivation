@@ -9,7 +9,7 @@ using ProductActivationService.Data;
 using ProductActivationService.Entities;
 using ProductActivationService.Services;
 using ProductActivationService.Requests;
-using ProductActivationService.Model;
+using ProductActivationService.Models;
 
 namespace ProductActivationService.Controllers
 {
