@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace ProductActivation.Service.Models
+namespace ProductActivationService.Models
 {
   public class BaseEntity
   {

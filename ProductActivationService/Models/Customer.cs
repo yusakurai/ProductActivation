@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace ProductActivation.Service.Models
+namespace ProductActivationService.Models
 {
   [Table("customer")]
   [Comment("カスタマーテーブル")]
@@ -12,13 +12,13 @@ namespace ProductActivation.Service.Models
     [Key]
     [Required]
     [Column("id", TypeName = "bigint")]
-    [Comment("サンプルID")]
-    public long SampleId { get; set; }
+    [Comment("ID")]
+    public long Id { get; set; }
 
     [Required]
-    [Column("sample_name", TypeName = "varchar")]
+    [Column("name", TypeName = "varchar")]
     [StringLength(20)]
-    [Comment("サンプル名称")]
-    public long SampleName { get; set; }
+    [Comment("名称")]
+    public string? Name { get; set; }
   }
 }

@@ -1,7 +1,7 @@
-using ProductActivation.Service.Models;
+using ProductActivationService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProductActivation.Service.Data
+namespace ProductActivationService.Data
 {
   /// <summary>
   /// MainContext

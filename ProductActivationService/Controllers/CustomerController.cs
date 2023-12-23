@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductActivation.Service.Data;
-using ProductActivation.Service.Models;
+using ProductActivationService.Data;
+using ProductActivationService.Models;
 
 namespace ProductActivationService.Controllers
 {
@@ -27,8 +27,8 @@ namespace ProductActivationService.Controllers
       {
         var customer1 = new Customer()
         {
-          SampleId = 1,
-          SampleName = 2
+          Id = 1,
+          Name = "hoge"
         };
         return customer1;
       })
@@ -51,11 +51,10 @@ namespace ProductActivationService.Controllers
     }
 
     // PUT: api/Customer/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     public async Task<IActionResult> PutCustomer(long id, Customer customer)
     {
-      if (id != customer.SampleId)
+      if (id != customer.Id)
       {
         return BadRequest();
       }
@@ -82,14 +81,13 @@ namespace ProductActivationService.Controllers
     }
 
     // POST: api/Customer
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
     {
       Context.Customer.Add(customer);
       await Context.SaveChangesAsync();
 
-      return CreatedAtAction("GetCustomer", new { id = customer.SampleId }, customer);
+      return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
     }
 
     // DELETE: api/Customer/5
@@ -110,7 +108,7 @@ namespace ProductActivationService.Controllers
 
     private bool CustomerExists(long id)
     {
-      return Context.Customer.Any(e => e.SampleId == id);
+      return Context.Customer.Any(e => e.Id == id);
     }
   }
 }
