@@ -161,12 +161,12 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 # データベースにSQL Serverを使用
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 # dotnet aspnet-codegenerator コマンドでモデルからコントローラーを作成する際に使用
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+# こっちは使わないかもしれない
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```
 
-以下、保留。
+### OR マッピングの実装
 
-```bash
-dotnet add package Microsoft.EntityFrameworkCore.InMemory
-dotnet add package Swashbuckle.AspNetCore.Annotations
-```
+- モデルクラスの作成
+- DbContext を継承した拡張 DbContext クラスを作成
