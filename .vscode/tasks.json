@@ -1,0 +1,93 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/ProductActivationService/ProductActivationService.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test",
+      "command": "dotnet",
+      "type": "process",
+      "group": "test",
+      "args": [
+        "test",
+        "${workspaceFolder}/ProductActivationService.Tests/ProductActivationService.Tests.csproj",
+        "--logger:\"console;verbosity=detailed\""
+      ],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test:cover",
+      "command": "dotnet",
+      "type": "process",
+      "group": "test",
+      "args": [
+        "test",
+        "${workspaceFolder}/ProductActivationService.Tests/ProductActivationService.Tests.csproj",
+        "/p:CollectCoverage=true",
+        "/p:CoverletOutputFormat=cobertura",
+        "/p:CoverletOutput=./TestResults/",
+        "/p:ExcludeByFile=\"${workspaceFolder}/ProductActivationService/OpenApi/**/*.cs,${workspaceFolder}/ProductActivationService/Program.cs,${workspaceFolder}/ProductActivationService/Migrations/**/*.cs,${workspaceFolder}/ProductActivationService/Data/DbInitializer.cs\""
+      ],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test:reposrt",
+      "command": "reportgenerator",
+      "type": "process",
+      "group": "test",
+      "args": [
+        "reportgenerator",
+        "-reports:\"${workspaceFolder}/ProductActivationService.Tests/TestResults/coverage.cobertura.xml\"",
+        "-targetdir:\"${workspaceFolder}/ProductActivationService.Tests/TestResults/CoverageReport\"",
+        "-reporttypes:Html"
+      ],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "dependsOn": ["test:cover"]
+    },
+    {
+      "label": "clean",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "clean",
+        "${workspaceFolder}/ProductActivationService",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish-release",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/ProductActivationService",
+        "--configuration",
+        "Release",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "dependsOn": "clean"
+    }
+  ]
+}
