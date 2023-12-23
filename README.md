@@ -164,16 +164,41 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 # こっちは使わないかもしれない
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+# Swaggerアノテーション
+dotnet add package Swashbuckle.AspNetCore.Annotations
+# AutoMapper
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
 ```
 
-### OR マッピングの実装
+### エンティティの実装
 
-- モデルクラスの作成
+- エンティティクラスの作成
 - DbContext を継承した拡張 DbContext クラスを作成
+
+### モデルの実装
+
+- Model の作成
+- Entity と Model の Mapper を作成
+  - Mapper はサービス層で使用
+
+### リポジトリー・サービスの実装
+
+- Repository の作成
+- Service の作成
+
+### リクエストの実装
+
+コントローラーのクエリパラメータに使用する
+
+- Request の作成
 
 ### コントローラーの実装
 
+- デザインパターンを使用するので Generator を使わなくても良い
+
 ```bash
-# コントローラー作成
+# コントローラー作成をGeneratorで行う場合
 dotnet aspnet-codegenerator controller -name CustomerController -async -api -m Customer -dc MainContext -outDir Controllers
 ```
+
+- Program.cs でサービス・リポジトリ・コントローラーを登録

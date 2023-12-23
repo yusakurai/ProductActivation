@@ -1,5 +1,9 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Data;
+using ProductActivationService.Mappers;
+using ProductActivationService.Repositories;
+using ProductActivationService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +43,20 @@ app.Run();
 /// <param name="service"></param>
 static void AddService(IServiceCollection service)
 {
-  // TODO: 本来はコントローラーにサービスをDIする
-  service.AddControllersWithViews();
+  // AutoMapper登録
+  service.AddAutoMapper(config =>
+  {
+    AutoMapperConfig.AddProfile(config);
+  });
+  // MapperをSingletonにする
+  service.AddSingleton<IMapper, Mapper>();
+  // コントローラー追加
+  service.AddControllers();
+  // Repository登録
+  // service.AddScoped<ICustomerRepository, CustomerRepository>();
+  service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
+  // Service登録
+  service.AddScoped<ICustomerService, CustomerService>();
+
+
 }
