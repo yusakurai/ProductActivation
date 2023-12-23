@@ -1,7 +1,9 @@
-# @ProductActivationService_HostAddress = http://localhost:5135
-@ProductActivationService_HostAddress = http://localhost:5002
+### dotnet run
+# @Root = http://localhost:5135
 
-GET {{ProductActivationService_HostAddress}}/weatherforecast/
+### デバッグ実行
+@Root = http://localhost:5002
+
+### Customer
+GET {{Root}}/api/customer
 Accept: application/json
-
-###

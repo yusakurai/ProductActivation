@@ -170,3 +170,10 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 - モデルクラスの作成
 - DbContext を継承した拡張 DbContext クラスを作成
+
+### コントローラーの実装
+
+```bash
+# コントローラー作成
+dotnet aspnet-codegenerator controller -name CustomerController -async -api -m Customer -dc MainContext -outDir Controllers
+```
