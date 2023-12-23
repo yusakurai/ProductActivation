@@ -1,9 +1,16 @@
+#====================================
+#       変数
+#====================================
 ### dotnet run
-# @Root = http://localhost:5135
+# @baseUrl = http://localhost:5135
 
 ### デバッグ実行
-@Root = http://localhost:5002
+@baseUrl = http://localhost:5002
 
-### Customer
-GET {{Root}}/api/customer
+#====================================
+# Customer
+#====================================
+
+### GET List
+GET {{baseUrl}}/api/customer
 Accept: application/json

@@ -22,5 +22,12 @@
     }
   },
   // スペルチェックを行わないファイルパスを指定する
-  "cSpell.ignorePaths": [".git", ".github", ".vscode", "bin", "obj"]
+  "cSpell.ignorePaths": [
+    ".git",
+    ".github",
+    ".vscode",
+    "bin",
+    "obj",
+    "Migrations"
+  ]
 }
