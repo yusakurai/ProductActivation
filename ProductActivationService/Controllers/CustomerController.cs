@@ -6,109 +6,84 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Data;
-using ProductActivationService.Models;
+using ProductActivationService.Entity;
+using ProductActivationService.Services;
+using ProductActivationService.Requests;
+using ProductActivationService.Model;
 
 namespace ProductActivationService.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class CustomerController(MainContext context) : ControllerBase
+  public class CustomerController(ILogger<CustomerController> logger, ICustomerService service) : ControllerBase
   {
-    private MainContext Context => context;
+    private ILogger<CustomerController> Logger => logger;
+    private ICustomerService Service => service;
 
     // GET: api/Customer
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+    public async Task<ActionResult<IEnumerable<CustomerModel>>> GetCustomer([FromQuery] ListCustomerRequest request)
     {
-      // return await Context.Customer.ToListAsync();
-      // TODO: 本来はDBから取得するが、サンプルなので固定値を返す
-      await Task.Delay(0);
-      var customers = Enumerable.Range(1, 5).Select(index =>
-      {
-        var customer1 = new Customer()
-        {
-          Id = 1,
-          Name = "hoge"
-        };
-        return customer1;
-      })
-          .ToArray();
-      return customers;
+      Logger.LogInformation("Visited:GetCustomer");
+      var result = await Service.GetCustomers(request.Name);
+      return result;
     }
 
     // GET: api/Customer/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Customer>> GetCustomer(long id)
+    public async Task<ActionResult<CustomerModel>> GetCustomer(long id)
     {
-      var customer = await Context.Customer.FindAsync(id);
-
-      if (customer == null)
+      var result = await Service.GetCustomer(id);
+      if (result == null)
       {
         return NotFound();
       }
-
-      return customer;
-    }
-
-    // PUT: api/Customer/5
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCustomer(long id, Customer customer)
-    {
-      if (id != customer.Id)
-      {
-        return BadRequest();
-      }
-
-      Context.Entry(customer).State = EntityState.Modified;
-
-      try
-      {
-        await Context.SaveChangesAsync();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!CustomerExists(id))
-        {
-          return NotFound();
-        }
-        else
-        {
-          throw;
-        }
-      }
-
-      return NoContent();
+      return result;
     }
 
     // POST: api/Customer
     [HttpPost]
-    public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+    public async Task<ActionResult<CustomerModel>> PostCustomer(InsertCustomerModel value)
     {
-      Context.Customer.Add(customer);
-      await Context.SaveChangesAsync();
+      var result = await Service.InsertCustomer(value);
+      // TODO: 戻りをクラスにしてItem1,2の指定をなくす
+      if (result.Item2 == ICustomerService.ServiceStatus.Conflict)
+      {
+        return Conflict();
+      }
+      return CreatedAtAction(nameof(GetCustomer), new { id = result.Item1!.Id }, result.Item1);
+    }
 
-      return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+    // PUT: api/Customer/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutCustomer(long id, [FromBody] UpdateCustomerModel value)
+    {
+      var result = await Service.UpdateCustomer(id, value);
+      if (result.Item2 == ICustomerService.ServiceStatus.NotFound)
+      {
+        return NotFound();
+      }
+      else if (result.Item2 == ICustomerService.ServiceStatus.Conflict)
+      {
+        return Conflict();
+      }
+      return Ok(result.Item1);
     }
 
     // DELETE: api/Customer/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCustomer(long id)
     {
-      var customer = await Context.Customer.FindAsync(id);
-      if (customer == null)
+      var result = await Service.DeleteCustomer(id);
+      if (result == ICustomerService.ServiceStatus.NotFound)
       {
         return NotFound();
       }
-
-      Context.Customer.Remove(customer);
-      await Context.SaveChangesAsync();
-
+      else if (result == ICustomerService.ServiceStatus.Conflict)
+      {
+        return Conflict();
+      }
       return NoContent();
-    }
-
-    private bool CustomerExists(long id)
-    {
-      return Context.Customer.Any(e => e.Id == id);
     }
   }
 }
