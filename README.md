@@ -122,6 +122,8 @@ sequenceDiagram
 
 ## 構築メモ
 
+### プロジェクト追加
+
 ```bash
 # ソリューション作成
 mkdir ProductActivation && cd ProductActivation && dotnet new sln
@@ -134,4 +136,37 @@ dotnet run
 dotnet sln add ProductActivationService/ProductActivationService.csproj
 # 追加されたことを確認
 dotnet sln list
+```
+
+### グローバルツールのインストール
+
+```bash
+# グローバルにインストールされているツールのリスト
+dotnet tool list -g
+
+# Entity Framework Core ツールのインストール（既にインストールされている場合はinstallをupdateに変えて実行）
+dotnet tool install -g dotnet-ef
+# インストール確認
+dotnet ef
+
+# aspnet-codegenerator のインストール
+dotnet tool install --global dotnet-aspnet-codegenerator
+```
+
+### Nuget パッケージインストール
+
+```bash
+# dotnet ef コマンドでデータベースからモデルを作成する際に使用
+dotnet add package Microsoft.EntityFrameworkCore.Design
+# データベースにSQL Serverを使用
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+# dotnet aspnet-codegenerator コマンドでモデルからコントローラーを作成する際に使用
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+```
+
+以下、保留。
+
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package Swashbuckle.AspNetCore.Annotations
 ```

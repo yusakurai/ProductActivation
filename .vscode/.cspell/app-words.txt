@@ -1,7 +1,9 @@
 # Custom Dictionary Words
 appsettings,
+aspnet
 aspnetcore,
 cobertura,
+codegenerator
 datetime,
 dbcontext,
 dtos,
@@ -15,4 +17,5 @@ sqlcmd,
 swashbuckle,
 targetdir,
 todoitems,
+webapi
 xunit
