@@ -18,6 +18,10 @@ namespace ProductActivationService.Entities
         public Guid Sub { get; set; }
 
         [Required]
+        [Comment("顧客ID")]
+        public long CustomerId { get; set; }
+
+        [Required]
         [StringLength(32)]
         [Comment("クライアントGUID")]
         public string? ClientGuid { get; set; }

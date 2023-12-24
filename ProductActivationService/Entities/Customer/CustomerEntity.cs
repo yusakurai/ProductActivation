@@ -14,7 +14,7 @@ namespace ProductActivationService.Entities
     {
         [Key]
         [Required]
-        [Comment("ID")]
+        [Comment("顧客ID")]
         public long Id { get; set; }
 
         [Required]
