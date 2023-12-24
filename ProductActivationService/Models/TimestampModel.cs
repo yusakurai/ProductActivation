@@ -3,6 +3,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ProductActivationService.Models
 {
+    /// <summary>
+    /// タイムスタンプモデル
+    /// </summary>
     public class TimestampModel
     {
         /// <summary>

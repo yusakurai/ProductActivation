@@ -5,7 +5,7 @@ using ProductActivationService.Entities;
 namespace ProductActivationService.Repositories
 {
     /// <summary>
-    /// Customerデータ取得リポジトリ
+    /// 顧客 リポジトリー
     /// </summary>
     public class CustomerRepository(MainContext context, ILogger<ICustomerRepository> logger) : ICustomerRepository
     {
@@ -13,10 +13,9 @@ namespace ProductActivationService.Repositories
         private MainContext Context => context;
 
         /// <summary>
-        /// Customerデータ取得（一覧）
+        /// 一覧取得
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="name">顧客名</param>
         public async ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? name = null)
         {
             var query = Context.Customer.Where(x => x.DeletedAt == null);
@@ -29,38 +28,36 @@ namespace ProductActivationService.Repositories
         }
 
         /// <summary>
-        /// Customerデータ取得（主キー）
+        /// 詳細取得
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
         public async ValueTask<CustomerEntity?> GetCustomerByID(long id)
         {
             return await Context.Customer.SingleOrDefaultAsync(e => e.Id == id);
         }
 
         /// <summary>
-        /// Customerデータ登録
+        /// 登録
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+        /// <param name="entity">顧客エンティティ</param>
         public async Task InsertCustomer(CustomerEntity entity)
         {
             await Context.Customer.AddAsync(entity);
         }
 
         /// <summary>
-        /// Customerデータ更新
+        /// 更新
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">顧客エンティティ</param>
         public void UpdateCustomer(CustomerEntity entity)
         {
             Context.Customer.Update(entity);
         }
 
         /// <summary>
-        /// Customerデータ削除
+        /// 削除
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">顧客エンティティ</param>
         public void DeleteCustomer(CustomerEntity entity)
         {
             entity.DeletedAt = DateTime.Now;

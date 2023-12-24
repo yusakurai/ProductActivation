@@ -3,6 +3,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ProductActivationService.Models
 {
+    /// <summary>
+    /// 顧客リストモデル
+    /// </summary>
     [SwaggerSchema(Title = "CustomerList")]
     public class CustomerListModel
     {

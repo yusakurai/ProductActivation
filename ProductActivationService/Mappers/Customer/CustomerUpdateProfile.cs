@@ -4,6 +4,9 @@ using ProductActivationService.Models;
 
 namespace ProductActivationService.Mappers
 {
+    /// <summary>
+    /// 顧客更新マッパー
+    /// </summary>
     public class CustomerUpdateProfile : Profile
     {
         public CustomerUpdateProfile()

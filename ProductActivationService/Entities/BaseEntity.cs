@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProductActivationService.Entities
 {
+    /// <summary>
+    /// ベースエンティティ
+    /// </summary>
     public class BaseEntity
     {
         [Comment("登録日時")]

@@ -2,6 +2,9 @@ using ProductActivationService.Models;
 
 namespace ProductActivationService.Services
 {
+    /// <summary>
+    /// 顧客サービス インターフェイス
+    /// </summary>
     public interface ICustomerService
     {
         enum ServiceStatus

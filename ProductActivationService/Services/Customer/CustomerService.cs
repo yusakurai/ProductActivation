@@ -8,7 +8,7 @@ using static ProductActivationService.Services.ICustomerService;
 namespace ProductActivationService.Services
 {
     /// <summary>
-    /// CustomerデータCRUDサービス
+    /// 顧客 サービス
     /// </summary>
     public class CustomerService(ILogger<ICustomerService> logger, ICustomerRepository repository, IMapper mapper, IConfiguration configuration) : ICustomerService
     {
@@ -20,8 +20,7 @@ namespace ProductActivationService.Services
         /// <summary>
         /// 一覧取得
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="name">顧客名</param>
         public async ValueTask<List<CustomerListModel>> GetCustomers(string? name = null)
         {
             // 設定ファイルからの取得
@@ -34,8 +33,7 @@ namespace ProductActivationService.Services
         /// <summary>
         /// 詳細取得
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
         public async ValueTask<CustomerDetailModel?> GetCustomer(long id)
         {
             var customer = await Repository.GetCustomerByID(id);
@@ -49,8 +47,7 @@ namespace ProductActivationService.Services
         /// <summary>
         /// 登録
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">顧客更新モデル</param>
         public async ValueTask<(CustomerDetailModel?, ServiceStatus)> InsertCustomer(CustomerUpdateModel model)
         {
             var entity = Mapper.Map<CustomerUpdateModel, CustomerEntity>(model);
@@ -72,9 +69,8 @@ namespace ProductActivationService.Services
         /// <summary>
         /// 更新
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
+        /// <param name="model">顧客更新モデル</param>
         public async ValueTask<(CustomerDetailModel?, ServiceStatus)> UpdateCustomer(long id, CustomerUpdateModel model)
         {
             var entity = await Repository.GetCustomerByID(id);
@@ -101,8 +97,7 @@ namespace ProductActivationService.Services
         /// <summary>
         /// 削除
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
         public async ValueTask<ServiceStatus> DeleteCustomer(long id)
         {
             var customer = await Repository.GetCustomerByID(id);

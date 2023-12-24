@@ -25,7 +25,7 @@ namespace ProductActivationService.Controllers.V2
         [HttpGet]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomerV2([FromQuery] ListCustomerRequest request)
+        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomerV2([FromQuery] CustomerListRequest request)
         {
             Logger.LogInformation("Visited:GetCustomer v2");
             var result = await Service.GetCustomers(request.Name);

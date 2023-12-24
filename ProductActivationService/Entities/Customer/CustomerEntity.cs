@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ProductActivationService.Entities
 {
+    /// <summary>
+    /// 顧客 エンティティ
+    /// </summary>
     [Table("Customer")]
     [Comment("顧客")]
     public class CustomerEntity : BaseEntity

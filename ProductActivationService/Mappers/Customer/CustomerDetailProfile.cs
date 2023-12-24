@@ -4,6 +4,9 @@ using ProductActivationService.Models;
 
 namespace ProductActivationService.Mappers
 {
+    /// <summary>
+    /// 顧客詳細マッパー
+    /// </summary>
     public class CustomerDetailProfile : Profile
     {
         public CustomerDetailProfile()

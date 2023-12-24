@@ -1,7 +1,7 @@
 namespace ProductActivationService.Models
 {
     /// <summary>
-    /// Application.jsonモデル
+    /// AppSettings モデル
     /// </summary>
     public class AppSettings
     {

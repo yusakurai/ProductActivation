@@ -16,7 +16,7 @@ GET {{baseUrl}}/customer
 Accept: application/json
 
 ### GET Detail
-GET {{baseUrl}}/customer/1
+GET {{baseUrl}}/customer/4
 Accept: application/json
 
 ### POST
@@ -30,7 +30,7 @@ content-type: application/json
 }
 
 ### PUT
-PUT {{baseUrl}}/customer/2
+PUT {{baseUrl}}/customer/4
 content-type: application/json
 
 {
@@ -40,4 +40,4 @@ content-type: application/json
 }
 
 ### DELETE
-DELETE {{baseUrl}}/customer/6
+DELETE {{baseUrl}}/customer/4
