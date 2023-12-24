@@ -10,7 +10,7 @@ namespace ProductActivationService.Models
         /// </summary>
         /// <example>顧客０１</example>
         [Required(ErrorMessage = "nameを設定してください")]
-        [StringLength(20, ErrorMessage = "nameは20文字以内で設定してください")]
+        [StringLength(40, ErrorMessage = "nameは20文字以内で設定してください")]
         [JsonPropertyName("name")]
         public string Name { get; set; } = null!;
 

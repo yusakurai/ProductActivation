@@ -12,7 +12,7 @@
 #====================================
 
 ### GET List
-GET {{baseUrl}}/customer?name=cat
+GET {{baseUrl}}/customer
 Accept: application/json
 
 ### GET Detail
@@ -30,12 +30,13 @@ content-type: application/json
 }
 
 ### PUT
-PUT {{baseUrl}}/customer/5
+PUT {{baseUrl}}/customer/1
 content-type: application/json
 
 {
-  "name": "walk dogsasd",
-  "isComplete": true
+  "name": "run cat",
+  "productKey": "ZZZZZZZZZZZZZZZZ",
+  "LicenseLimit": 200
 }
 
 ### DELETE

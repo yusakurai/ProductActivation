@@ -15,7 +15,7 @@ namespace ProductActivationService.Entities
         public long Id { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(40)]
         [Comment("名称")]
         public string? Name { get; set; }
 
