@@ -225,3 +225,11 @@ MEMO:
 ### 設定キーの実装
 
 - AppSettings の実装
+
+### コード整形
+
+```bash
+# コード整形
+dotnet tool install -g dotnet-format
+dotnet format .
+```
