@@ -202,3 +202,12 @@ dotnet aspnet-codegenerator controller -name CustomerController -async -api -m C
 ```
 
 - Program.cs でサービス・リポジトリ・コントローラーを登録
+
+### API バージョニング追加
+
+```bash
+# バージョン管理を行うためのパッケージを追加
+dotnet add package Microsoft.AspNetCore.Mvc.Versioning
+```
+
+参考: [.NETCore でアクション別のバージョン管理](https://qiita.com/alicial/items/f095ef52c5677abc3f7e)

@@ -12,5 +12,9 @@
 #====================================
 
 ### GET List
-GET {{baseUrl}}/api/customer
+GET {{baseUrl}}/api/v1/customer
+Accept: application/json
+
+### GET List
+GET {{baseUrl}}/api/v1.1/customer
 Accept: application/json

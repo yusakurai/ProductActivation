@@ -14,12 +14,17 @@ builder.Services.AddDbContext<MainContext>(opt =>
   opt.UseSqlServer(connection);
 });
 
-// DIコンテナにサービスを追加する
+// API Versioning
+builder.Services.AddApiVersioning();
+// マッパー追加
+AddMapper(builder.Services);
+// コントローラー追加
+builder.Services.AddControllers();
+// リポジトリー追加
+AddRepository(builder.Services);
+// サービス追加
 AddService(builder.Services);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+// Swagger生成追加
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -38,10 +43,10 @@ app.MapControllers();
 app.Run();
 
 /// <summary>
-/// DIコンテナにサービスを追加する
+/// DIコンテナにMapperを追加する
 /// </summary>
 /// <param name="service"></param>
-static void AddService(IServiceCollection service)
+static void AddMapper(IServiceCollection service)
 {
   // AutoMapper登録
   service.AddAutoMapper(config =>
@@ -50,13 +55,25 @@ static void AddService(IServiceCollection service)
   });
   // MapperをSingletonにする
   service.AddSingleton<IMapper, Mapper>();
-  // コントローラー追加
-  service.AddControllers();
-  // Repository登録
+}
+
+/// <summary>
+/// DIコンテナにリポジトリーを追加する
+/// </summary>
+/// <param name="service"></param>
+static void AddRepository(IServiceCollection service)
+{
+  // カスタマー
   // service.AddScoped<ICustomerRepository, CustomerRepository>();
   service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
-  // Service登録
+}
+
+/// <summary>
+/// DIコンテナにサービスを追加する
+/// </summary>
+/// <param name="service"></param>
+static void AddService(IServiceCollection service)
+{
+  // カスタマー
   service.AddScoped<ICustomerService, CustomerService>();
-
-
 }
