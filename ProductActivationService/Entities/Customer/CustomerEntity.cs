@@ -19,7 +19,7 @@ namespace ProductActivationService.Entities
 
         [Required]
         [StringLength(40)]
-        [Comment("名称")]
+        [Comment("顧客名")]
         public string? Name { get; set; }
 
         [Required]
