@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ProductActivationService.Entities;
 using ProductActivationService.Models;
 using ProductActivationService.Repositories;
