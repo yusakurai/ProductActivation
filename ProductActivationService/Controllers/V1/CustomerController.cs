@@ -24,7 +24,7 @@ namespace ProductActivationService.Controllers.V1
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<CustomerModel>>> GetCustomer([FromQuery] ListCustomerRequest request)
+        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomer([FromQuery] ListCustomerRequest request)
         {
             Logger.LogInformation("Visited:GetCustomer");
             var result = await Service.GetCustomers(request.Name);
@@ -40,7 +40,7 @@ namespace ProductActivationService.Controllers.V1
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CustomerModel>> GetCustomer(long id)
+        public async Task<ActionResult<CustomerDetailModel>> GetCustomer(long id)
         {
             var result = await Service.GetCustomer(id);
             if (result == null)
@@ -73,7 +73,7 @@ namespace ProductActivationService.Controllers.V1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<CustomerModel>> PostCustomer(InsertCustomerModel value)
+        public async Task<ActionResult<CustomerDetailModel>> PostCustomer(CustomerInsertModel value)
         {
             var result = await Service.InsertCustomer(value);
             // TODO: 戻りをクラスにしてItem1,2の指定をなくす
@@ -96,7 +96,7 @@ namespace ProductActivationService.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> PutCustomer(long id, [FromBody] UpdateCustomerModel value)
+        public async Task<IActionResult> PutCustomer(long id, [FromBody] CustomerUpdateModel value)
         {
             var result = await Service.UpdateCustomer(id, value);
             if (result.Item2 == ICustomerService.ServiceStatus.NotFound)

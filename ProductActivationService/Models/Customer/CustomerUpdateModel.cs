@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ProductActivationService.Models
 {
-    public class UpdateCustomerModel
+    public class CustomerUpdateModel
     {
         /// <summary>
         /// 顧客名

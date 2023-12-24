@@ -5,16 +5,38 @@
 # @baseUrl = http://localhost:5135
 
 ### デバッグ実行
-@baseUrl = http://localhost:5002
+@baseUrl = http://localhost:5002/api/v1
 
 #====================================
 # Customer
 #====================================
 
 ### GET List
-GET {{baseUrl}}/api/v1/customer
+GET {{baseUrl}}/customer?name=cat
 Accept: application/json
 
-### GET List
-GET {{baseUrl}}/api/v1.1/customer
+### GET Detail
+GET {{baseUrl}}/customer/1
 Accept: application/json
+
+### POST
+POST {{baseUrl}}/customer
+content-type: application/json
+
+{
+  "name": "walk cat",
+  "productKey": "XXXXXXXXXXXXXXXX",
+  "LicenseLimit": 100
+}
+
+### PUT
+PUT {{baseUrl}}/customer/5
+content-type: application/json
+
+{
+  "name": "walk dogsasd",
+  "isComplete": true
+}
+
+### DELETE
+DELETE {{baseUrl}}/customer/6

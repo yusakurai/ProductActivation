@@ -19,10 +19,10 @@ namespace ProductActivationService.Repositories
         /// <returns></returns>
         public async ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? name = null)
         {
-            var query = Context.Customer.Where(e => true);
+            var query = Context.Customer.Where(x => x.DeletedAt == null);
             if (!string.IsNullOrEmpty(name))
             {
-                query = query.Where(x => x.Name == name);
+                query = query.Where(x => x.Name != null && x.Name.Contains(name));
             }
             var result = await query.ToListAsync();
             return result;
@@ -63,7 +63,8 @@ namespace ProductActivationService.Repositories
         /// <param name="entity"></param>
         public void DeleteCustomer(CustomerEntity entity)
         {
-            Context.Customer.Remove(entity);
+            entity.DeletedAt = DateTime.Now;
+            Context.Customer.Update(entity);
         }
 
         /// <summary>

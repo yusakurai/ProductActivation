@@ -11,10 +11,10 @@ namespace ProductActivationService.Services
             Conflict,
         }
 
-        ValueTask<List<CustomerModel>> GetCustomers(string? key);
-        ValueTask<CustomerModel?> GetCustomer(long id);
-        ValueTask<(CustomerModel?, ServiceStatus)> InsertCustomer(InsertCustomerModel model);
-        ValueTask<(CustomerModel?, ServiceStatus)> UpdateCustomer(long id, UpdateCustomerModel model);
+        ValueTask<List<CustomerListModel>> GetCustomers(string? key);
+        ValueTask<CustomerDetailModel?> GetCustomer(long id);
+        ValueTask<(CustomerDetailModel?, ServiceStatus)> InsertCustomer(CustomerInsertModel model);
+        ValueTask<(CustomerDetailModel?, ServiceStatus)> UpdateCustomer(long id, CustomerUpdateModel model);
         ValueTask<ServiceStatus> DeleteCustomer(long id);
     }
 

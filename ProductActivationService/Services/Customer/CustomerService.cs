@@ -22,12 +22,12 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async ValueTask<List<CustomerModel>> GetCustomers(string? name = null)
+        public async ValueTask<List<CustomerListModel>> GetCustomers(string? name = null)
         {
             // 設定ファイルからの取得
             Logger.LogInformation("設定ファイル「SampleKey」: {sampleKey} ", Configuration["SampleSettings:SampleKey"]);
             var customers = await Repository.GetCustomers(name);
-            var result = Mapper.Map<IEnumerable<CustomerEntity>, IEnumerable<CustomerModel>>(customers);
+            var result = Mapper.Map<IEnumerable<CustomerEntity>, IEnumerable<CustomerListModel>>(customers);
             return result.ToList();
         }
 
@@ -36,14 +36,14 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async ValueTask<CustomerModel?> GetCustomer(long id)
+        public async ValueTask<CustomerDetailModel?> GetCustomer(long id)
         {
             var customer = await Repository.GetCustomerByID(id);
             if (customer == null)
             {
                 return null;
             }
-            return Mapper.Map<CustomerEntity, CustomerModel>(customer);
+            return Mapper.Map<CustomerEntity, CustomerDetailModel>(customer);
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async ValueTask<(CustomerModel?, ServiceStatus)> InsertCustomer(InsertCustomerModel model)
+        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> InsertCustomer(CustomerInsertModel model)
         {
-            var entity = Mapper.Map<InsertCustomerModel, CustomerEntity>(model);
+            var entity = Mapper.Map<CustomerInsertModel, CustomerEntity>(model);
             await Repository.InsertCustomer(entity);
             try
             {
@@ -65,7 +65,7 @@ namespace ProductActivationService.Services
                 return (null, ServiceStatus.Conflict);
             }
             var resultData = await Repository.GetCustomerByID(entity.Id);
-            var result = Mapper.Map<CustomerEntity, CustomerModel>(resultData!);
+            var result = Mapper.Map<CustomerEntity, CustomerDetailModel>(resultData!);
             return (result, ServiceStatus.Ok);
         }
 
@@ -75,7 +75,7 @@ namespace ProductActivationService.Services
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async ValueTask<(CustomerModel?, ServiceStatus)> UpdateCustomer(long id, UpdateCustomerModel model)
+        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> UpdateCustomer(long id, CustomerUpdateModel model)
         {
             var entity = await Repository.GetCustomerByID(id);
             if (entity == null)
@@ -94,7 +94,7 @@ namespace ProductActivationService.Services
                 return (null, ServiceStatus.Conflict);
             }
             var resultData = await Repository.GetCustomerByID(entity.Id);
-            var result = Mapper.Map<CustomerEntity, CustomerModel>(resultData!);
+            var result = Mapper.Map<CustomerEntity, CustomerDetailModel>(resultData!);
             return (result, ServiceStatus.Ok);
         }
 

@@ -83,7 +83,8 @@ static void AddMapper(IServiceCollection service)
     // AutoMapper登録
     service.AddAutoMapper(config =>
     {
-        AutoMapperConfig.AddProfile(config);
+        // 顧客
+        CustomerAutoMapperConfig.AddProfile(config);
     });
     // MapperをSingletonにする
     service.AddSingleton<IMapper, Mapper>();
@@ -92,14 +93,13 @@ static void AddMapper(IServiceCollection service)
 // DIコンテナにリポジトリーを追加する
 static void AddRepository(IServiceCollection service)
 {
-    // カスタマー
-    // service.AddScoped<ICustomerRepository, CustomerRepository>();
-    service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
+    // 顧客
+    service.AddScoped<ICustomerRepository, CustomerRepository>();
 }
 
 // DIコンテナにサービスを追加する
 static void AddService(IServiceCollection service)
 {
-    // カスタマー
+    // 顧客
     service.AddScoped<ICustomerService, CustomerService>();
 }

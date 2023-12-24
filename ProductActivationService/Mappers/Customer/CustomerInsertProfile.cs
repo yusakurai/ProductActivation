@@ -4,11 +4,11 @@ using ProductActivationService.Models;
 
 namespace ProductActivationService.Mappers
 {
-    public class InsertCustomerProfile : Profile
+    public class CustomerInsertProfile : Profile
     {
-        public InsertCustomerProfile()
+        public CustomerInsertProfile()
         {
-            CreateMap<InsertCustomerModel, CustomerEntity>();
+            CreateMap<CustomerInsertModel, CustomerEntity>();
         }
     }
 }
