@@ -45,7 +45,7 @@ namespace ProductActivationService.Services
         /// 登録
         /// </summary>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(TokenDetailModel?, ServiceStatus)> Insert(TokenUpdateModel model)
+        public async ValueTask<TokenServiceResult> Insert(TokenUpdateModel model)
         {
             var entity = Mapper.Map<TokenUpdateModel, TokenEntity>(model);
             await Repository.Insert(entity);
@@ -56,11 +56,11 @@ namespace ProductActivationService.Services
             catch (DbUpdateException ex)
             {
                 Logger.LogWarning(ex, "Token登録時に例外発生");
-                return (null, ServiceStatus.Conflict);
+                return new TokenServiceResult(null, ServiceStatus.Conflict);
             }
             var newEntity = await Repository.GetDetail(entity.Sub.ToString());
             var newModel = Mapper.Map<TokenEntity, TokenDetailModel>(newEntity!);
-            return (newModel, ServiceStatus.Ok);
+            return new TokenServiceResult(newModel, ServiceStatus.Ok);
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="sub">sub</param>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(TokenDetailModel?, ServiceStatus)> Update(string sub, TokenUpdateModel model)
+        public async ValueTask<TokenServiceResult> Update(string sub, TokenUpdateModel model)
         {
             var entity = await Repository.GetDetail(sub);
             if (entity == null)
             {
-                return (null, ServiceStatus.NotFound);
+                return new TokenServiceResult(null, ServiceStatus.NotFound);
             }
             Mapper.Map(model, entity);
             Repository.Update(entity);
@@ -84,11 +84,11 @@ namespace ProductActivationService.Services
             catch (DbUpdateException ex)
             {
                 Logger.LogWarning(ex, "Token更新時に例外発生");
-                return (null, ServiceStatus.Conflict);
+                return new TokenServiceResult(null, ServiceStatus.Conflict);
             }
             var newEntity = await Repository.GetDetail(entity.Sub.ToString());
             var newModel = Mapper.Map<TokenEntity, TokenDetailModel>(newEntity!);
-            return (newModel, ServiceStatus.Ok);
+            return new TokenServiceResult(newModel, ServiceStatus.Ok);
         }
 
         /// <summary>

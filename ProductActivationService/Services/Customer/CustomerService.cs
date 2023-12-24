@@ -48,7 +48,7 @@ namespace ProductActivationService.Services
         /// 登録
         /// </summary>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> Insert(CustomerUpdateModel model)
+        public async ValueTask<CustomerServiceResult> Insert(CustomerUpdateModel model)
         {
             var entity = Mapper.Map<CustomerUpdateModel, CustomerEntity>(model);
             await Repository.Insert(entity);
@@ -59,11 +59,11 @@ namespace ProductActivationService.Services
             catch (DbUpdateException ex)
             {
                 Logger.LogWarning(ex, "Customer登録時に例外発生");
-                return (null, ServiceStatus.Conflict);
+                return new CustomerServiceResult(null, ServiceStatus.Conflict);
             }
             var newEntity = await Repository.GetDetail(entity.Id);
             var newModel = Mapper.Map<CustomerEntity, CustomerDetailModel>(newEntity!);
-            return (newModel, ServiceStatus.Ok);
+            return new CustomerServiceResult(newModel, ServiceStatus.Ok);
         }
 
         /// <summary>
@@ -71,12 +71,12 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="id">ID</param>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> Update(long id, CustomerUpdateModel model)
+        public async ValueTask<CustomerServiceResult> Update(long id, CustomerUpdateModel model)
         {
             var entity = await Repository.GetDetail(id);
             if (entity == null)
             {
-                return (null, ServiceStatus.NotFound);
+                return new CustomerServiceResult(null, ServiceStatus.NotFound);
             }
             Mapper.Map(model, entity);
             Repository.Update(entity);
@@ -87,11 +87,11 @@ namespace ProductActivationService.Services
             catch (DbUpdateException ex)
             {
                 Logger.LogWarning(ex, "Customer更新時に例外発生");
-                return (null, ServiceStatus.Conflict);
+                return new CustomerServiceResult(null, ServiceStatus.Conflict);
             }
             var newEntity = await Repository.GetDetail(entity.Id);
             var newModel = Mapper.Map<CustomerEntity, CustomerDetailModel>(newEntity!);
-            return (newModel, ServiceStatus.Ok);
+            return new CustomerServiceResult(newModel, ServiceStatus.Ok);
         }
 
         /// <summary>

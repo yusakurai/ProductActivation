@@ -57,12 +57,11 @@ namespace ProductActivationService.Controllers.V1
         public async Task<ActionResult<TokenDetailModel>> Post(TokenUpdateModel model)
         {
             var result = await Service.Insert(model);
-            // TODO: 戻りをクラスにしてItem1,2の指定をなくす
-            if (result.Item2 == ITokenService.ServiceStatus.Conflict)
+            if (result.Status == ITokenService.ServiceStatus.Conflict)
             {
                 return Conflict();
             }
-            return CreatedAtAction(nameof(GetDetail), new { sub = result.Item1!.Sub }, result.Item1);
+            return CreatedAtAction(nameof(GetDetail), new { sub = result.DetailModel!.Sub }, result.DetailModel);
         }
 
         /// <summary>
@@ -78,15 +77,15 @@ namespace ProductActivationService.Controllers.V1
         public async Task<IActionResult> Put(string sub, [FromBody] TokenUpdateModel model)
         {
             var result = await Service.Update(sub, model);
-            if (result.Item2 == ITokenService.ServiceStatus.NotFound)
+            if (result.Status == ITokenService.ServiceStatus.NotFound)
             {
                 return NotFound();
             }
-            else if (result.Item2 == ITokenService.ServiceStatus.Conflict)
+            else if (result.Status == ITokenService.ServiceStatus.Conflict)
             {
                 return Conflict();
             }
-            return Ok(result.Item1);
+            return Ok(result.DetailModel);
         }
 
         /// <summary>

@@ -16,9 +16,17 @@ namespace ProductActivationService.Services
 
         ValueTask<List<TokenListModel>> GetList(string? sub);
         ValueTask<TokenDetailModel?> GetDetail(string sub);
-        ValueTask<(TokenDetailModel?, ServiceStatus)> Insert(TokenUpdateModel model);
-        ValueTask<(TokenDetailModel?, ServiceStatus)> Update(string sub, TokenUpdateModel model);
+        ValueTask<TokenServiceResult> Insert(TokenUpdateModel model);
+        ValueTask<TokenServiceResult> Update(string sub, TokenUpdateModel model);
         ValueTask<ServiceStatus> Delete(string sub);
     }
 
+    /// <summary>
+    /// トークンサービス 結果クラス
+    /// </summary>
+    public class TokenServiceResult(TokenDetailModel? detailModel, ITokenService.ServiceStatus status)
+    {
+        public TokenDetailModel? DetailModel => detailModel;
+        public ITokenService.ServiceStatus Status => status;
+    }
 }

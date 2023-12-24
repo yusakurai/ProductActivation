@@ -16,9 +16,17 @@ namespace ProductActivationService.Services
 
         ValueTask<List<CustomerListModel>> GetList(string? name);
         ValueTask<CustomerDetailModel?> GetDetail(long id);
-        ValueTask<(CustomerDetailModel?, ServiceStatus)> Insert(CustomerUpdateModel model);
-        ValueTask<(CustomerDetailModel?, ServiceStatus)> Update(long id, CustomerUpdateModel model);
+        ValueTask<CustomerServiceResult> Insert(CustomerUpdateModel model);
+        ValueTask<CustomerServiceResult> Update(long id, CustomerUpdateModel model);
         ValueTask<ServiceStatus> Delete(long id);
     }
 
+    /// <summary>
+    /// 顧客サービス 結果クラス
+    /// </summary>
+    public class CustomerServiceResult(CustomerDetailModel? detailModel, ICustomerService.ServiceStatus status)
+    {
+        public CustomerDetailModel? DetailModel => detailModel;
+        public ICustomerService.ServiceStatus Status => status;
+    }
 }

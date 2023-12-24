@@ -58,12 +58,11 @@ namespace ProductActivationService.Controllers.V1
         public async Task<ActionResult<CustomerDetailModel>> Post(CustomerUpdateModel model)
         {
             var result = await Service.Insert(model);
-            // TODO: 戻りをクラスにしてItem1,2の指定をなくす
-            if (result.Item2 == ICustomerService.ServiceStatus.Conflict)
+            if (result.Status == ICustomerService.ServiceStatus.Conflict)
             {
                 return Conflict();
             }
-            return CreatedAtAction(nameof(GetDetail), new { id = result.Item1!.Id }, result.Item1);
+            return CreatedAtAction(nameof(GetDetail), new { id = result.DetailModel!.Id }, result.DetailModel);
         }
 
         /// <summary>
@@ -79,15 +78,15 @@ namespace ProductActivationService.Controllers.V1
         public async Task<IActionResult> Put(long id, [FromBody] CustomerUpdateModel model)
         {
             var result = await Service.Update(id, model);
-            if (result.Item2 == ICustomerService.ServiceStatus.NotFound)
+            if (result.Status == ICustomerService.ServiceStatus.NotFound)
             {
                 return NotFound();
             }
-            else if (result.Item2 == ICustomerService.ServiceStatus.Conflict)
+            else if (result.Status == ICustomerService.ServiceStatus.Conflict)
             {
                 return Conflict();
             }
-            return Ok(result.Item1);
+            return Ok(result.DetailModel);
         }
 
         /// <summary>
