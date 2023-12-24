@@ -42,10 +42,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
 
-/// <summary>
-/// DIコンテナにMapperを追加する
-/// </summary>
-/// <param name="service"></param>
+// DIコンテナにMapperを追加する
 static void AddMapper(IServiceCollection service)
 {
   // AutoMapper登録
@@ -57,10 +54,7 @@ static void AddMapper(IServiceCollection service)
   service.AddSingleton<IMapper, Mapper>();
 }
 
-/// <summary>
-/// DIコンテナにリポジトリーを追加する
-/// </summary>
-/// <param name="service"></param>
+// DIコンテナにリポジトリーを追加する
 static void AddRepository(IServiceCollection service)
 {
   // カスタマー
@@ -68,10 +62,7 @@ static void AddRepository(IServiceCollection service)
   service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
 }
 
-/// <summary>
-/// DIコンテナにサービスを追加する
-/// </summary>
-/// <param name="service"></param>
+// DIコンテナにサービスを追加する
 static void AddService(IServiceCollection service)
 {
   // カスタマー
