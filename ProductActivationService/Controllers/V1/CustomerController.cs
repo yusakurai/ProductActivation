@@ -17,11 +17,9 @@ namespace ProductActivationService.Controllers.V1
         private ILogger<CustomerController> Logger => logger;
         private ICustomerService Service => service;
 
-        // GET: api/Customer
         /// <summary>
         /// リスト取得
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomer([FromQuery] ListCustomerRequest request)
@@ -31,12 +29,10 @@ namespace ProductActivationService.Controllers.V1
             return result;
         }
 
-        // GET: api/Customer/5
         /// <summary>
         /// 取得
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -50,32 +46,17 @@ namespace ProductActivationService.Controllers.V1
             return result;
         }
 
-        // POST: api/Customer
         /// <summary>
         /// 登録
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>A newly created Customer</returns>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /api/v1/Customer
-        ///     {
-        ///        "id": 1,
-        ///        "name": "Item #1",
-        ///        "isComplete": true
-        ///     }
-        ///
-        /// </remarks>
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="400">If the item is null</response>
+        /// <param name="model">顧客登録モデル</param>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<CustomerDetailModel>> PostCustomer(CustomerInsertModel value)
+        public async Task<ActionResult<CustomerDetailModel>> PostCustomer(CustomerUpdateModel model)
         {
-            var result = await Service.InsertCustomer(value);
+            var result = await Service.InsertCustomer(model);
             // TODO: 戻りをクラスにしてItem1,2の指定をなくす
             if (result.Item2 == ICustomerService.ServiceStatus.Conflict)
             {
@@ -84,21 +65,19 @@ namespace ProductActivationService.Controllers.V1
             return CreatedAtAction(nameof(GetCustomer), new { id = result.Item1!.Id }, result.Item1);
         }
 
-        // PUT: api/Customer/5
         /// <summary>
         /// 更新
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
+        /// <param name="model">顧客更新モデル</param>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> PutCustomer(long id, [FromBody] CustomerUpdateModel value)
+        public async Task<IActionResult> PutCustomer(long id, [FromBody] CustomerUpdateModel model)
         {
-            var result = await Service.UpdateCustomer(id, value);
+            var result = await Service.UpdateCustomer(id, model);
             if (result.Item2 == ICustomerService.ServiceStatus.NotFound)
             {
                 return NotFound();
@@ -110,12 +89,10 @@ namespace ProductActivationService.Controllers.V1
             return Ok(result.Item1);
         }
 
-        // DELETE: api/Customer/5
         /// <summary>
         /// 削除
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">顧客ID</param>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

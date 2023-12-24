@@ -51,9 +51,9 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> InsertCustomer(CustomerInsertModel model)
+        public async ValueTask<(CustomerDetailModel?, ServiceStatus)> InsertCustomer(CustomerUpdateModel model)
         {
-            var entity = Mapper.Map<CustomerInsertModel, CustomerEntity>(model);
+            var entity = Mapper.Map<CustomerUpdateModel, CustomerEntity>(model);
             await Repository.InsertCustomer(entity);
             try
             {

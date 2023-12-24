@@ -24,7 +24,11 @@ builder.Services.Configure<AppSettings>(builder.Configuration);
 // マッパー追加
 AddMapper(builder.Services);
 // コントローラー追加
-builder.Services.AddControllers();
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    // SwaggerのBad Responseのサンプルモデルを非表示にする
+    options.SuppressMapClientErrors = true;
+});
 // リポジトリー追加
 AddRepository(builder.Services);
 // サービス追加

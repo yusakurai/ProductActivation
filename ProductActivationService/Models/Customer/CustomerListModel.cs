@@ -14,7 +14,7 @@ namespace ProductActivationService.Models
         public long Id { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 顧客名
         /// </summary>
         /// <example>顧客０１</example>
         [JsonPropertyName("name")]

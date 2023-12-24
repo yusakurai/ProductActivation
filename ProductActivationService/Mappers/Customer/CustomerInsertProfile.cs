@@ -8,7 +8,7 @@ namespace ProductActivationService.Mappers
     {
         public CustomerInsertProfile()
         {
-            CreateMap<CustomerInsertModel, CustomerEntity>();
+            CreateMap<CustomerUpdateModel, CustomerEntity>();
         }
     }
 }

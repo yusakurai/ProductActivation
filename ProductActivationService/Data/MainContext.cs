@@ -11,12 +11,14 @@ namespace ProductActivationService.Data
     {
         public DbSet<CustomerEntity> Customer { get; set; } = null!;
 
+        // 保存時に自動でCreatedAt, UpdatedAtを設定する
         public override int SaveChanges()
         {
             AddTimestamps();
             return base.SaveChanges();
         }
 
+        // 保存時に自動でCreatedAt, UpdatedAtを設定する
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             AddTimestamps();
