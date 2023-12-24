@@ -16,22 +16,22 @@ namespace ProductActivationService.Repositories
         /// 一覧取得
         /// </summary>
         /// <param name="name">顧客名</param>
-        public async ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? name = null)
+        public async ValueTask<IEnumerable<CustomerEntity>> GetList(string? name = null)
         {
             var query = Context.Customer.Where(x => x.DeletedAt == null);
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(x => x.Name != null && x.Name.Contains(name));
             }
-            var result = await query.ToListAsync();
-            return result;
+            var entityList = await query.ToListAsync();
+            return entityList;
         }
 
         /// <summary>
         /// 詳細取得
         /// </summary>
-        /// <param name="id">顧客ID</param>
-        public async ValueTask<CustomerEntity?> GetCustomerByID(long id)
+        /// <param name="id">ID</param>
+        public async ValueTask<CustomerEntity?> GetDetail(long id)
         {
             return await Context.Customer.SingleOrDefaultAsync(e => e.Id == id);
         }
@@ -39,8 +39,8 @@ namespace ProductActivationService.Repositories
         /// <summary>
         /// 登録
         /// </summary>
-        /// <param name="entity">顧客エンティティ</param>
-        public async Task InsertCustomer(CustomerEntity entity)
+        /// <param name="entity">エンティティ</param>
+        public async Task Insert(CustomerEntity entity)
         {
             await Context.Customer.AddAsync(entity);
         }
@@ -48,8 +48,8 @@ namespace ProductActivationService.Repositories
         /// <summary>
         /// 更新
         /// </summary>
-        /// <param name="entity">顧客エンティティ</param>
-        public void UpdateCustomer(CustomerEntity entity)
+        /// <param name="entity">エンティティ</param>
+        public void Update(CustomerEntity entity)
         {
             Context.Customer.Update(entity);
         }
@@ -57,8 +57,8 @@ namespace ProductActivationService.Repositories
         /// <summary>
         /// 削除
         /// </summary>
-        /// <param name="entity">顧客エンティティ</param>
-        public void DeleteCustomer(CustomerEntity entity)
+        /// <param name="entity">エンティティ</param>
+        public void Delete(CustomerEntity entity)
         {
             entity.DeletedAt = DateTime.Now;
             Context.Customer.Update(entity);

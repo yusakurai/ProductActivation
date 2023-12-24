@@ -7,11 +7,11 @@ namespace ProductActivationService.Repositories
     /// </summary>
     public interface ITokenRepository
     {
-        ValueTask<IEnumerable<TokenEntity>> GetTokens(string? sub = null);
-        ValueTask<TokenEntity?> GetTokenBySub(string sub);
-        Task InsertToken(TokenEntity entity);
-        void UpdateToken(TokenEntity entity);
-        void DeleteToken(TokenEntity entity);
+        ValueTask<IEnumerable<TokenEntity>> GetList(string? sub = null);
+        ValueTask<TokenEntity?> GetDetail(string sub);
+        Task Insert(TokenEntity entity);
+        void Update(TokenEntity entity);
+        void Delete(TokenEntity entity);
         Task Save();
     }
 

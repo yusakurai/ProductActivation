@@ -7,11 +7,11 @@ namespace ProductActivationService.Repositories
     /// </summary>
     public interface ICustomerRepository
     {
-        ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? key = null);
-        ValueTask<CustomerEntity?> GetCustomerByID(long id);
-        Task InsertCustomer(CustomerEntity entity);
-        void UpdateCustomer(CustomerEntity entity);
-        void DeleteCustomer(CustomerEntity entity);
+        ValueTask<IEnumerable<CustomerEntity>> GetList(string? name = null);
+        ValueTask<CustomerEntity?> GetDetail(long id);
+        Task Insert(CustomerEntity entity);
+        void Update(CustomerEntity entity);
+        void Delete(CustomerEntity entity);
         Task Save();
     }
 

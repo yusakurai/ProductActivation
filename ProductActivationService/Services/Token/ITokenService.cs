@@ -14,11 +14,11 @@ namespace ProductActivationService.Services
             Conflict,
         }
 
-        ValueTask<List<TokenListModel>> GetTokens(string? sub);
-        ValueTask<TokenDetailModel?> GetToken(string sub);
-        ValueTask<(TokenDetailModel?, ServiceStatus)> InsertToken(TokenUpdateModel model);
-        ValueTask<(TokenDetailModel?, ServiceStatus)> UpdateToken(string sub, TokenUpdateModel model);
-        ValueTask<ServiceStatus> DeleteToken(string sub);
+        ValueTask<List<TokenListModel>> GetList(string? sub);
+        ValueTask<TokenDetailModel?> GetDetail(string sub);
+        ValueTask<(TokenDetailModel?, ServiceStatus)> Insert(TokenUpdateModel model);
+        ValueTask<(TokenDetailModel?, ServiceStatus)> Update(string sub, TokenUpdateModel model);
+        ValueTask<ServiceStatus> Delete(string sub);
     }
 
 }

@@ -22,11 +22,11 @@ namespace ProductActivationService.Controllers.V1
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<TokenListModel>>> GetToken([FromQuery] TokenListRequest request)
+        public async Task<ActionResult<IEnumerable<TokenListModel>>> GetList([FromQuery] TokenListRequest request)
         {
-            Logger.LogInformation("Visited:GetToken");
-            var result = await Service.GetTokens(request.Sub);
-            return result;
+            Logger.LogInformation("Visited:GetList");
+            var modelList = await Service.GetList(request.Sub);
+            return modelList;
         }
 
         /// <summary>
@@ -36,14 +36,14 @@ namespace ProductActivationService.Controllers.V1
         [HttpGet("{sub}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TokenDetailModel>> GetToken(string sub)
+        public async Task<ActionResult<TokenDetailModel>> GetDetail(string sub)
         {
-            var result = await Service.GetToken(sub);
-            if (result == null)
+            var model = await Service.GetDetail(sub);
+            if (model == null)
             {
                 return NotFound();
             }
-            return result;
+            return model;
         }
 
         /// <summary>
@@ -54,15 +54,15 @@ namespace ProductActivationService.Controllers.V1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<TokenDetailModel>> PostToken(TokenUpdateModel model)
+        public async Task<ActionResult<TokenDetailModel>> Post(TokenUpdateModel model)
         {
-            var result = await Service.InsertToken(model);
+            var result = await Service.Insert(model);
             // TODO: 戻りをクラスにしてItem1,2の指定をなくす
             if (result.Item2 == ITokenService.ServiceStatus.Conflict)
             {
                 return Conflict();
             }
-            return CreatedAtAction(nameof(GetToken), new { id = result.Item1!.Sub }, result.Item1);
+            return CreatedAtAction(nameof(GetDetail), new { id = result.Item1!.Sub }, result.Item1);
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace ProductActivationService.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> PutToken(string sub, [FromBody] TokenUpdateModel model)
+        public async Task<IActionResult> Put(string sub, [FromBody] TokenUpdateModel model)
         {
-            var result = await Service.UpdateToken(sub, model);
+            var result = await Service.Update(sub, model);
             if (result.Item2 == ITokenService.ServiceStatus.NotFound)
             {
                 return NotFound();
@@ -97,9 +97,9 @@ namespace ProductActivationService.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> DeleteToken(string sub)
+        public async Task<IActionResult> Delete(string sub)
         {
-            var result = await Service.DeleteToken(sub);
+            var result = await Service.Delete(sub);
             if (result == ITokenService.ServiceStatus.NotFound)
             {
                 return NotFound();

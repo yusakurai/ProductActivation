@@ -17,18 +17,17 @@ namespace ProductActivationService.Controllers.V1_1
         private ILogger<CustomerController> Logger => logger;
         private ICustomerService Service => service;
 
-        // GET: api/Customer
         /// <summary>
         /// リスト取得
         /// </summary>
-        /// <returns></returns>
+        /// <param name="request">リクエスト</param>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomer([FromQuery] CustomerListRequest request)
+        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetList([FromQuery] CustomerListRequest request)
         {
             Logger.LogInformation("Visited:GetCustomer v1.1");
-            var result = await Service.GetCustomers(request.Name);
-            return result;
+            var modelList = await Service.GetList(request.Name);
+            return modelList;
         }
     }
 }

@@ -16,22 +16,22 @@ namespace ProductActivationService.Repositories
         /// 一覧取得
         /// </summary>
         /// <param name="sub">sub</param>
-        public async ValueTask<IEnumerable<TokenEntity>> GetTokens(string? sub = null)
+        public async ValueTask<IEnumerable<TokenEntity>> GetList(string? sub = null)
         {
             var query = Context.Token.Where(x => x.DeletedAt == null);
             if (!string.IsNullOrEmpty(sub))
             {
-                query = query.Where(x => x.Sub != null && x.Sub.ToString().Contains(sub));
+                query = query.Where(x => x.Sub.ToString().Contains(sub));
             }
-            var result = await query.ToListAsync();
-            return result;
+            var entityList = await query.ToListAsync();
+            return entityList;
         }
 
         /// <summary>
         /// 詳細取得
         /// </summary>
         /// <param name="sub">sub</param>
-        public async ValueTask<TokenEntity?> GetTokenBySub(string sub)
+        public async ValueTask<TokenEntity?> GetDetail(string sub)
         {
             return await Context.Token.SingleOrDefaultAsync(e => e.Sub.ToString() == sub);
         }
@@ -40,7 +40,7 @@ namespace ProductActivationService.Repositories
         /// 登録
         /// </summary>
         /// <param name="entity">エンティティ</param>
-        public async Task InsertToken(TokenEntity entity)
+        public async Task Insert(TokenEntity entity)
         {
             await Context.Token.AddAsync(entity);
         }
@@ -49,7 +49,7 @@ namespace ProductActivationService.Repositories
         /// 更新
         /// </summary>
         /// <param name="entity">エンティティ</param>
-        public void UpdateToken(TokenEntity entity)
+        public void Update(TokenEntity entity)
         {
             Context.Token.Update(entity);
         }
@@ -58,7 +58,7 @@ namespace ProductActivationService.Repositories
         /// 削除
         /// </summary>
         /// <param name="entity">エンティティ</param>
-        public void DeleteToken(TokenEntity entity)
+        public void Delete(TokenEntity entity)
         {
             entity.DeletedAt = DateTime.Now;
             Context.Token.Update(entity);

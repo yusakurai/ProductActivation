@@ -20,20 +20,20 @@ namespace ProductActivationService.Services
         /// 一覧取得
         /// </summary>
         /// <param name="sub">sub</param>
-        public async ValueTask<List<TokenListModel>> GetTokens(string? sub = null)
+        public async ValueTask<List<TokenListModel>> GetList(string? sub = null)
         {
-            var entity = await Repository.GetTokens(sub);
-            var model = Mapper.Map<IEnumerable<TokenEntity>, IEnumerable<TokenListModel>>(entity);
-            return model.ToList();
+            var entityList = await Repository.GetList(sub);
+            var modelList = Mapper.Map<IEnumerable<TokenEntity>, IEnumerable<TokenListModel>>(entityList);
+            return modelList.ToList();
         }
 
         /// <summary>
         /// 詳細取得
         /// </summary>
         /// <param name="sub">sub</param>
-        public async ValueTask<TokenDetailModel?> GetToken(string sub)
+        public async ValueTask<TokenDetailModel?> GetDetail(string sub)
         {
-            var entity = await Repository.GetTokenBySub(sub);
+            var entity = await Repository.GetDetail(sub);
             if (entity == null)
             {
                 return null;
@@ -45,10 +45,10 @@ namespace ProductActivationService.Services
         /// 登録
         /// </summary>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(TokenDetailModel?, ServiceStatus)> InsertToken(TokenUpdateModel model)
+        public async ValueTask<(TokenDetailModel?, ServiceStatus)> Insert(TokenUpdateModel model)
         {
             var entity = Mapper.Map<TokenUpdateModel, TokenEntity>(model);
-            await Repository.InsertToken(entity);
+            await Repository.Insert(entity);
             try
             {
                 await Repository.Save();
@@ -58,7 +58,7 @@ namespace ProductActivationService.Services
                 Logger.LogWarning(ex, "Token登録時に例外発生");
                 return (null, ServiceStatus.Conflict);
             }
-            var newEntity = await Repository.GetTokenBySub(entity.Sub.ToString());
+            var newEntity = await Repository.GetDetail(entity.Sub.ToString());
             var newModel = Mapper.Map<TokenEntity, TokenDetailModel>(newEntity!);
             return (newModel, ServiceStatus.Ok);
         }
@@ -68,15 +68,15 @@ namespace ProductActivationService.Services
         /// </summary>
         /// <param name="sub">sub</param>
         /// <param name="model">更新モデル</param>
-        public async ValueTask<(TokenDetailModel?, ServiceStatus)> UpdateToken(string sub, TokenUpdateModel model)
+        public async ValueTask<(TokenDetailModel?, ServiceStatus)> Update(string sub, TokenUpdateModel model)
         {
-            var entity = await Repository.GetTokenBySub(sub);
+            var entity = await Repository.GetDetail(sub);
             if (entity == null)
             {
                 return (null, ServiceStatus.NotFound);
             }
             Mapper.Map(model, entity);
-            Repository.UpdateToken(entity);
+            Repository.Update(entity);
             try
             {
                 await Repository.Save();
@@ -86,7 +86,7 @@ namespace ProductActivationService.Services
                 Logger.LogWarning(ex, "Token更新時に例外発生");
                 return (null, ServiceStatus.Conflict);
             }
-            var newEntity = await Repository.GetTokenBySub(entity.Sub.ToString());
+            var newEntity = await Repository.GetDetail(entity.Sub.ToString());
             var newModel = Mapper.Map<TokenEntity, TokenDetailModel>(newEntity!);
             return (newModel, ServiceStatus.Ok);
         }
@@ -95,14 +95,14 @@ namespace ProductActivationService.Services
         /// 削除
         /// </summary>
         /// <param name="sub">sub</param>
-        public async ValueTask<ServiceStatus> DeleteToken(string sub)
+        public async ValueTask<ServiceStatus> Delete(string sub)
         {
-            var entity = await Repository.GetTokenBySub(sub);
+            var entity = await Repository.GetDetail(sub);
             if (entity == null)
             {
                 return ServiceStatus.NotFound;
             }
-            Repository.DeleteToken(entity);
+            Repository.Delete(entity);
             try
             {
                 await Repository.Save();

@@ -17,19 +17,18 @@ namespace ProductActivationService.Controllers.V2
         private ILogger<CustomerController> Logger => logger;
         private ICustomerService Service => service;
 
-        // GET: api/v2/Customer
         /// <summary>
         /// リスト取得
         /// </summary>
-        /// <returns></returns>
+        /// <param name="request">リクエスト</param>
         [HttpGet]
         [MapToApiVersion("2.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetCustomerV2([FromQuery] CustomerListRequest request)
+        public async Task<ActionResult<IEnumerable<CustomerListModel>>> GetList([FromQuery] CustomerListRequest request)
         {
             Logger.LogInformation("Visited:GetCustomer v2");
-            var result = await Service.GetCustomers(request.Name);
-            return result;
+            var modelList = await Service.GetList(request.Name);
+            return modelList;
         }
     }
 }
