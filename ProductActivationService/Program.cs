@@ -89,6 +89,8 @@ static void AddMapper(IServiceCollection service)
     {
         // 顧客
         CustomerAutoMapperConfig.AddProfile(config);
+        // トークン
+        TokenAutoMapperConfig.AddProfile(config);
     });
     // MapperをSingletonにする
     service.AddSingleton<IMapper, Mapper>();
