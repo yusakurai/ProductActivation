@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using ProductActivationService.Models;
+using AutoMapper;
 using ProductActivationService.Entities;
+using ProductActivationService.Models;
 
 namespace ProductActivationService.Mappers
 {
-  public class UpdateCustomerProfile : Profile
-  {
-    public UpdateCustomerProfile()
+    public class UpdateCustomerProfile : Profile
     {
-      CreateMap<UpdateCustomerModel, CustomerEntity>();
+        public UpdateCustomerProfile()
+        {
+            CreateMap<UpdateCustomerModel, CustomerEntity>();
+        }
     }
-  }
 }

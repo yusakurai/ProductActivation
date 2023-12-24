@@ -1,89 +1,87 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ProductActivationService.Data;
 using ProductActivationService.Entities;
 
 namespace ProductActivationService.Repositories
 {
-  /// <summary>
-  /// Customerデータ取得リポジトリ
-  /// </summary>
-  public class CustomerRepositoryFake(MainContext context, ILogger<ICustomerRepository> logger) : ICustomerRepository
-  {
-    private ILogger Logger => logger;
-    private MainContext Context => context;
-
     /// <summary>
-    /// Customerデータ取得（一覧）
+    /// Customerデータ取得リポジトリ
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public async ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? name = null)
+    public class CustomerRepositoryFake() : ICustomerRepository
     {
-      await Task.Delay(0);
-      var customers = Enumerable.Range(1, 5).Select(index =>
-      {
-        var customer = new CustomerEntity()
+
+        /// <summary>
+        /// Customerデータ取得（一覧）
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async ValueTask<IEnumerable<CustomerEntity>> GetCustomers(string? name = null)
         {
-          Id = 1,
-          Name = "hoge"
-        };
-        return customer;
-      })
-          .ToArray();
-      return customers;
+            await Task.Delay(0);
+            var customers = Enumerable.Range(1, 5).Select(index =>
+            {
+                var customer = new CustomerEntity()
+                {
+                    Id = 1,
+                    Name = "hoge"
+                };
+                return customer;
+            })
+                .ToArray();
+            return customers;
+        }
+
+        /// <summary>
+        /// Customerデータ取得（主キー）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async ValueTask<CustomerEntity?> GetCustomerByID(long id)
+        {
+            await Task.Delay(0);
+            var customer = new CustomerEntity()
+            {
+                Id = 1,
+                Name = "hoge"
+            };
+            return customer;
+        }
+
+        /// <summary>
+        /// Customerデータ登録
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task InsertCustomer(CustomerEntity entity)
+        {
+            await Task.Delay(0);
+        }
+
+        /// <summary>
+        /// Customerデータ更新
+        /// </summary>
+        /// <param name="entity"></param>
+        public void UpdateCustomer(CustomerEntity entity)
+        {
+
+        }
+
+        /// <summary>
+        /// Customerデータ削除
+        /// </summary>
+        /// <param name="entity"></param>
+        public void DeleteCustomer(CustomerEntity entity)
+        {
+
+        }
+
+        /// <summary>
+        /// DB保存
+        /// </summary>
+        public async Task Save()
+        {
+            await Task.Delay(0);
+        }
     }
-
-    /// <summary>
-    /// Customerデータ取得（主キー）
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async ValueTask<CustomerEntity?> GetCustomerByID(long id)
-    {
-      await Task.Delay(0);
-      var customer = new CustomerEntity()
-      {
-        Id = 1,
-        Name = "hoge"
-      };
-      return customer;
-    }
-
-    /// <summary>
-    /// Customerデータ登録
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <returns></returns>
-    public async Task InsertCustomer(CustomerEntity entity)
-    {
-      await Task.Delay(0);
-    }
-
-    /// <summary>
-    /// Customerデータ更新
-    /// </summary>
-    /// <param name="entity"></param>
-    public void UpdateCustomer(CustomerEntity entity)
-    {
-
-    }
-
-    /// <summary>
-    /// Customerデータ削除
-    /// </summary>
-    /// <param name="entity"></param>
-    public void DeleteCustomer(CustomerEntity entity)
-    {
-
-    }
-
-    /// <summary>
-    /// DB保存
-    /// </summary>
-    public async Task Save()
-    {
-      await Task.Delay(0);
-    }
-  }
 
 }

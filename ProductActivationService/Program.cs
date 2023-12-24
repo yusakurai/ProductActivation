@@ -1,12 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
-using ProductActivationService.Models;
 using ProductActivationService.Data;
 using ProductActivationService.Mappers;
+using ProductActivationService.Models;
 using ProductActivationService.Repositories;
 using ProductActivationService.Services;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using ProductActivationService.Utils.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // DB接続
 builder.Services.AddDbContext<MainContext>(opt =>
 {
-  var connection = builder.Configuration.GetConnectionString("MSSQLConnection");
-  opt.UseSqlServer(connection);
+    var connection = builder.Configuration.GetConnectionString("MSSQLConnection");
+    opt.UseSqlServer(connection);
 });
 
 // AppSetting
@@ -34,11 +34,11 @@ builder.Services.AddSwaggerGen();
 // API バージョニング追加
 builder.Services.AddApiVersioning(opt =>
 {
-  // クライアントにApiバージョンを通知
-  opt.ReportApiVersions = true;
-  opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
-                                                  new HeaderApiVersionReader("x-api-version"),
-                                                  new MediaTypeApiVersionReader("x-api-version"));
+    // クライアントにApiバージョンを通知
+    opt.ReportApiVersions = true;
+    opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+                                                    new HeaderApiVersionReader("x-api-version"),
+                                                    new MediaTypeApiVersionReader("x-api-version"));
 });
 // Swaggerオプション設定追加
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
@@ -46,11 +46,11 @@ builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 // builder.Services.AddVersionedApiExplorer();
 builder.Services.AddVersionedApiExplorer(setup =>
 {
-  // VVV: Major, optional minor version, and status
-  // https://github.com/dotnet/aspnet-api-versioning/wiki/Version-Format#custom-api-version-format-strings
-  setup.GroupNameFormat = "'v'VVV";
-  // フォーマット方法を制御できるようにする
-  setup.SubstituteApiVersionInUrl = true;
+    // VVV: Major, optional minor version, and status
+    // https://github.com/dotnet/aspnet-api-versioning/wiki/Version-Format#custom-api-version-format-strings
+    setup.GroupNameFormat = "'v'VVV";
+    // フォーマット方法を制御できるようにする
+    setup.SubstituteApiVersionInUrl = true;
 });
 
 var app = builder.Build();
@@ -58,17 +58,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-  var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+    var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-  app.UseSwagger();
-  app.UseSwaggerUI(options =>
-  {
-    foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
     {
-      options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-            description.GroupName.ToUpperInvariant());
-    }
-  });
+        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
+    });
 }
 
 // 強制的に HTTP 要求を HTTPS へリダイレクトする
@@ -80,26 +80,26 @@ app.Run();
 // DIコンテナにMapperを追加する
 static void AddMapper(IServiceCollection service)
 {
-  // AutoMapper登録
-  service.AddAutoMapper(config =>
-  {
-    AutoMapperConfig.AddProfile(config);
-  });
-  // MapperをSingletonにする
-  service.AddSingleton<IMapper, Mapper>();
+    // AutoMapper登録
+    service.AddAutoMapper(config =>
+    {
+        AutoMapperConfig.AddProfile(config);
+    });
+    // MapperをSingletonにする
+    service.AddSingleton<IMapper, Mapper>();
 }
 
 // DIコンテナにリポジトリーを追加する
 static void AddRepository(IServiceCollection service)
 {
-  // カスタマー
-  // service.AddScoped<ICustomerRepository, CustomerRepository>();
-  service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
+    // カスタマー
+    // service.AddScoped<ICustomerRepository, CustomerRepository>();
+    service.AddScoped<ICustomerRepository, CustomerRepositoryFake>();
 }
 
 // DIコンテナにサービスを追加する
 static void AddService(IServiceCollection service)
 {
-  // カスタマー
-  service.AddScoped<ICustomerService, CustomerService>();
+    // カスタマー
+    service.AddScoped<ICustomerService, CustomerService>();
 }
