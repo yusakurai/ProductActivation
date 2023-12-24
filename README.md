@@ -17,12 +17,6 @@ $ docker-compose up -d --build
 
 ## テーブル
 
-- Customer
-
-  - ID
-  - productKey
-  - LicenseAmount
-
 - Token
   - ID
   - Sub
@@ -233,3 +227,22 @@ MEMO:
 dotnet tool install -g dotnet-format
 dotnet format .
 ```
+
+### モデルからマイグレーション作成
+
+- `CREATE DATABASE SampleService`で DB を作成してくおく
+
+```bash
+# dotnet ef migrations add --context {コンテキスト名} {マイグレーション名}
+dotnet ef migrations add --context MainContext Customer
+
+# DB作成
+dotnet ef database update
+```
+
+トラブルシューティング
+
+- Only the invariant culture is supported in globalization-invariant mode
+  - `<InvariantGlobalization>false</InvariantGlobalization>`を False に設定
+- A connection was successfully established with the server, but then an error occurred during the pre-login handshake.
+  - `TrustServerCertificate=True`を接続文字列に追加。
