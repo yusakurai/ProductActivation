@@ -24,19 +24,19 @@ POST {{baseUrl}}/customer
 content-type: application/json
 
 {
-  "name": "walk cat",
-  "productKey": "XXXXXXXXXXXXXXXX",
-  "LicenseLimit": 100
+  "name": "顧客ABC",
+  "productKey": "S1TMBL5zKMUbx38A",
+  "LicenseLimit": 10
 }
 
 ### PUT
-PUT {{baseUrl}}/customer/1
+PUT {{baseUrl}}/customer/2
 content-type: application/json
 
 {
-  "name": "run cat",
-  "productKey": "ZZZZZZZZZZZZZZZZ",
-  "LicenseLimit": 200
+  "name": "顧客EFG",
+  "productKey": "yHtOQX6IAAf46JkB",
+  "LicenseLimit": 20
 }
 
 ### DELETE
