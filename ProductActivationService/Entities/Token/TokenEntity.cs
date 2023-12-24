@@ -22,7 +22,7 @@ namespace ProductActivationService.Entities
         public long CustomerId { get; set; }
 
         [Required]
-        [StringLength(32)]
+        [StringLength(36)]
         [Comment("クライアントGUID")]
         public string? ClientGuid { get; set; }
 

@@ -21,7 +21,7 @@ namespace ProductActivationService.Models
         /// </summary>
         /// <example>a81bc81b-dead-4e5d-abff-90865d1e13b1</example>
         [Required(ErrorMessage = "clientGuidを設定してください")]
-        [StringLength(32, ErrorMessage = "clientGuidは32文字以内で設定してください")]
+        [StringLength(36, ErrorMessage = "clientGuidは36文字以内で設定してください")]
         [JsonPropertyName("clientGuid")]
         public string ClientGuid { get; set; } = null!;
 
