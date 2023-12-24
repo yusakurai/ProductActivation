@@ -221,3 +221,7 @@ dotnet add package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
 MEMO:
 
 - Controller を使用する場合、Create WebAPI 時点で追加されていた`builder.Services.AddEndpointsApiExplorer();`はコメントアウトしても問題なし。Program.cs 内にミニマル API を使って実装している場合に Swagger 出力する際に必要。参考: https://blog.devgenius.io/what-is-addendpointsapiexplorer-in-asp-net-core-6-64ba52d15979#dc8b
+
+### 設定キーの実装
+
+- AppSettings の実装

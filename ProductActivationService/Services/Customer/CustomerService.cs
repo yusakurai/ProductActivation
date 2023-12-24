@@ -4,17 +4,19 @@ using ProductActivationService.Entities;
 using ProductActivationService.Models;
 using ProductActivationService.Repositories;
 using static ProductActivationService.Services.ICustomerService;
+using Microsoft.Extensions.Configuration;
 
 namespace ProductActivationService.Services
 {
   /// <summary>
   /// CustomerデータCRUDサービス
   /// </summary>
-  public class CustomerService(ILogger<ICustomerService> logger, ICustomerRepository repository, IMapper mapper) : ICustomerService
+  public class CustomerService(ILogger<ICustomerService> logger, ICustomerRepository repository, IMapper mapper, IConfiguration configuration) : ICustomerService
   {
     private ILogger Logger => logger;
     private IMapper Mapper => mapper;
     private ICustomerRepository Repository => repository;
+    private IConfiguration Configuration => configuration;
 
     /// <summary>
     /// 一覧取得
@@ -23,6 +25,8 @@ namespace ProductActivationService.Services
     /// <returns></returns>
     public async ValueTask<List<CustomerModel>> GetCustomers(string? name = null)
     {
+      // 設定ファイルからの取得
+      Logger.LogInformation("設定ファイル「SampleKey」: {sampleKey} ", Configuration["SampleSettings:SampleKey"]);
       var customers = await Repository.GetCustomers(name);
       var result = Mapper.Map<IEnumerable<CustomerEntity>, IEnumerable<CustomerModel>>(customers);
       return result.ToList();

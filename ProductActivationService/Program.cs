@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ProductActivationService.Models;
 using ProductActivationService.Data;
 using ProductActivationService.Mappers;
 using ProductActivationService.Repositories;
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<MainContext>(opt =>
   var connection = builder.Configuration.GetConnectionString("MSSQLConnection");
   opt.UseSqlServer(connection);
 });
+
+// AppSetting
+builder.Services.Configure<AppSettings>(builder.Configuration);
 
 // マッパー追加
 AddMapper(builder.Services);
