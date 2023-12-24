@@ -46,7 +46,7 @@ namespace ProductActivationService.Services
     /// <summary>
     /// 登録
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="model"></param>
     /// <returns></returns>
     public async ValueTask<(CustomerModel?, ServiceStatus)> InsertCustomer(InsertCustomerModel model)
     {
@@ -70,7 +70,7 @@ namespace ProductActivationService.Services
     /// 更新
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="value"></param>
+    /// <param name="model"></param>
     /// <returns></returns>
     public async ValueTask<(CustomerModel?, ServiceStatus)> UpdateCustomer(long id, UpdateCustomerModel model)
     {
