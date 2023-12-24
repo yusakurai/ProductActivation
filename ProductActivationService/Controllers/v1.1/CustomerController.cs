@@ -10,7 +10,7 @@ namespace ProductActivationService.Controllers.V1_1
     /// </summary>
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.1")]
+    [ApiVersion("1.1", Deprecated = true)]
     [Produces("application/json")]
     public class CustomerController(ILogger<CustomerController> logger, ICustomerService service) : ControllerBase
     {

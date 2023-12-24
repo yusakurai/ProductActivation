@@ -41,3 +41,38 @@ content-type: application/json
 
 ### DELETE
 DELETE {{baseUrl}}/customer/4
+
+#====================================
+# Token
+#====================================
+
+### GET List
+GET {{baseUrl}}/token
+Accept: application/json
+
+### GET Detail
+GET {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
+Accept: application/json
+
+### POST
+POST {{baseUrl}}/token
+content-type: application/json
+
+{
+  "customerId": 2,
+  "clientGuid": "3F2504E0-4F89-11D3-9A0C-0305E82C3301",
+  "clientHostName": "host_01"
+}
+
+### PUT
+PUT {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
+content-type: application/json
+
+{
+  "customerId": 1,
+  "clientGuid": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+  "clientHostName": "host_XX_01"
+}
+
+### DELETE
+DELETE {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853

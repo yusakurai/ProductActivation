@@ -101,6 +101,8 @@ static void AddRepository(IServiceCollection service)
 {
     // 顧客
     service.AddScoped<ICustomerRepository, CustomerRepository>();
+    // トークン
+    service.AddScoped<ITokenRepository, TokenRepository>();
 }
 
 // DIコンテナにサービスを追加する
@@ -108,4 +110,6 @@ static void AddService(IServiceCollection service)
 {
     // 顧客
     service.AddScoped<ICustomerService, CustomerService>();
+    // トークン
+    service.AddScoped<ITokenService, TokenService>();
 }
