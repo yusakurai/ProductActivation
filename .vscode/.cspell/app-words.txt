@@ -18,5 +18,6 @@ Swashbuckle
 swashbuckle,
 targetdir,
 todoitems,
+v'VVV
 webapi
 xunit

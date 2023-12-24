@@ -202,12 +202,22 @@ dotnet aspnet-codegenerator controller -name CustomerController -async -api -m C
 ```
 
 - Program.cs でサービス・リポジトリ・コントローラーを登録
+- API でコントローラー使うには、ControllerBase を使用すると一通り揃っている
+- 個別にルーティングを設定する場合は Controller を継承して実装すると良さそう
 
-### API バージョニング追加
+### API バージョニングと Swagger 設定
 
 ```bash
 # バージョン管理を行うためのパッケージを追加
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning
+dotnet add package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
 ```
 
-参考: [.NETCore でアクション別のバージョン管理](https://qiita.com/alicial/items/f095ef52c5677abc3f7e)
+参考:
+
+- [.NETCore でアクション別のバージョン管理](https://qiita.com/alicial/items/f095ef52c5677abc3f7e)
+- [Managing Multiple Versions of Your API with .NET and Swagger](https://medium.com/@seldah/managing-multiple-versions-of-your-api-with-net-and-swagger-47b4143e8bf5)
+
+MEMO:
+
+- Controller を使用する場合、Create WebAPI 時点で追加されていた`builder.Services.AddEndpointsApiExplorer();`はコメントアウトしても問題なし。Program.cs 内にミニマル API を使って実装している場合に Swagger 出力する際に必要。参考: https://blog.devgenius.io/what-is-addendpointsapiexplorer-in-asp-net-core-6-64ba52d15979#dc8b

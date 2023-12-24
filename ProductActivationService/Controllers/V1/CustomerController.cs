@@ -11,15 +11,14 @@ using ProductActivationService.Services;
 using ProductActivationService.Requests;
 using ProductActivationService.Models;
 
-namespace ProductActivationService.Controllers
+namespace ProductActivationService.Controllers.V1
 {
   /// <summary>
   /// Customer コントローラー
   /// </summary>
-  [ApiVersion("1")]
-  [ApiVersion("1.1")]
-  [Route("api/v{version:apiVersion}/[controller]")]
   [ApiController]
+  [Route("api/v{version:apiVersion}/[controller]")]
+  [ApiVersion("1.0", Deprecated = true)]
   [Produces("application/json")]
   public class CustomerController(ILogger<CustomerController> logger, ICustomerService service) : ControllerBase
   {
@@ -36,21 +35,6 @@ namespace ProductActivationService.Controllers
     public async Task<ActionResult<IEnumerable<CustomerModel>>> GetCustomer([FromQuery] ListCustomerRequest request)
     {
       Logger.LogInformation("Visited:GetCustomer");
-      var result = await Service.GetCustomers(request.Name);
-      return result;
-    }
-
-    // GET: api/v1.1/Customer
-    /// <summary>
-    /// リスト取得
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [MapToApiVersion("1.1")] // Apiバージョンを上書き
-    public async Task<ActionResult<IEnumerable<CustomerModel>>> GetCustomerV1_1([FromQuery] ListCustomerRequest request)
-    {
-      Logger.LogInformation("Visited:GetCustomer v1.1");
       var result = await Service.GetCustomers(request.Name);
       return result;
     }
