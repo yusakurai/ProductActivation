@@ -62,7 +62,7 @@ namespace ProductActivationService.Controllers.V1
             {
                 return Conflict();
             }
-            return CreatedAtAction(nameof(GetDetail), new { id = result.Item1!.Sub }, result.Item1);
+            return CreatedAtAction(nameof(GetDetail), new { sub = result.Item1!.Sub }, result.Item1);
         }
 
         /// <summary>
