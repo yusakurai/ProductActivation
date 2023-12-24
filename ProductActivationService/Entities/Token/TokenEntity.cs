@@ -30,9 +30,6 @@ namespace ProductActivationService.Entities
         [Comment("クライアントホスト名")]
         public string? ClientHostName { get; set; }
 
-        [Comment("JWT")]
-        public string? Jwt { get; set; }
-
         [Comment("有効期限")]
         public long Exp { get; set; }
     }
