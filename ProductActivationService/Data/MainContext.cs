@@ -10,6 +10,7 @@ namespace ProductActivationService.Data
     public class MainContext(DbContextOptions<MainContext> options) : DbContext(options)
     {
         public DbSet<CustomerEntity> Customer { get; set; } = null!;
+        public DbSet<TokenEntity> Token { get; set; } = null!;
 
         // 保存時に自動でCreatedAt, UpdatedAtを設定する
         public override int SaveChanges()
