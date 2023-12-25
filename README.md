@@ -246,3 +246,14 @@ dotnet ef database update
   - `<InvariantGlobalization>false</InvariantGlobalization>`を False に設定
 - A connection was successfully established with the server, but then an error occurred during the pre-login handshake.
   - `TrustServerCertificate=True`を接続文字列に追加。
+
+## テストプロジェクトの追加
+
+[dotnet テストと xUnit を使用した .NET Core での単体テスト](https://learn.microsoft.com/ja-jp/dotnet/core/testing/unit-testing-with-dotnet-test)
+
+```bash
+# テストプロジェクトの作成
+dotnet new xunit -o ProductActivationService.Tests
+# ソリューションに追加
+dotnet sln add ./ProductActivationService.Tests/ProductActivationService.Tests.csproj
+```
