@@ -15,6 +15,15 @@
 $ docker-compose up -d --build
 ```
 
+## DB の作成
+
+- DB を作成しておく（テスト用も）
+  - CREATE DATABASE SampleService
+  - CREATE DATABASE TSampleService
+- 接続文字列のメンテ
+  - appsettings.{Develop / Testing}.json
+  - ProductActivationService.Tests/Utils/FixtureBase.cs
+
 ## テーブル
 
 - Token
