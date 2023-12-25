@@ -95,17 +95,12 @@ namespace ProductActivationService.Controllers.V1
         [HttpDelete("{sub}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Delete(string sub)
         {
             var result = await Service.Delete(sub);
             if (result == ITokenService.ServiceStatus.NotFound)
             {
                 return NotFound();
-            }
-            else if (result == ITokenService.ServiceStatus.Conflict)
-            {
-                return Conflict();
             }
             return NoContent();
         }

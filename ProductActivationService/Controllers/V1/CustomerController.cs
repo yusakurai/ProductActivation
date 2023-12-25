@@ -96,17 +96,12 @@ namespace ProductActivationService.Controllers.V1
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Delete(long id)
         {
             var result = await Service.Delete(id);
             if (result == ICustomerService.ServiceStatus.NotFound)
             {
                 return NotFound();
-            }
-            else if (result == ICustomerService.ServiceStatus.Conflict)
-            {
-                return Conflict();
             }
             return NoContent();
         }

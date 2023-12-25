@@ -106,15 +106,7 @@ namespace ProductActivationService.Services
                 return ServiceStatus.NotFound;
             }
             Repository.Delete(entity);
-            try
-            {
-                await Repository.Save();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Logger.LogWarning(ex, "Customer削除時に例外発生");
-                return ServiceStatus.Conflict;
-            }
+            await Repository.Save();
             return ServiceStatus.Ok;
         }
     }
