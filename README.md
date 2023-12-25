@@ -257,3 +257,26 @@ dotnet new xunit -o ProductActivationService.Tests
 # ソリューションに追加
 dotnet sln add ./ProductActivationService.Tests/ProductActivationService.Tests.csproj
 ```
+
+## テスト構築
+
+パッケージ追加
+
+```bash
+# Support for writing functional tests for MVC applications.
+dotnet add package Microsoft.AspNetCore.Mvc.Testing
+```
+
+参照追加
+
+```xml
+<ItemGroup>
+  <ProjectReference Include="..\ProductActivationService\ProductActivationService.csproj" />
+</ItemGroup>
+```
+
+ディレクトリ追加
+
+- Controllers ... コントローラーのテスト
+- TestData ... テストデータ
+- Utils ... MSSQLServer の DB 作成・削除などの初期化処理

@@ -113,3 +113,6 @@ static void AddService(IServiceCollection service)
     // トークン
     service.AddScoped<ITokenService, TokenService>();
 }
+
+// Testプロジェクトから参照できるようにする
+public partial class Program { }

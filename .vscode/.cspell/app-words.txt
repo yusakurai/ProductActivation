@@ -1,6 +1,7 @@
 # Custom Dictionary Words
 appsettings,
 aspnet
+ASPNETCORE
 aspnetcore,
 cobertura,
 codegenerator
