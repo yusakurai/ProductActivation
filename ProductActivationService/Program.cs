@@ -8,6 +8,9 @@ using ProductActivationService.Models;
 using ProductActivationService.Repositories;
 using ProductActivationService.Services;
 using ProductActivationService.Utils.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +58,22 @@ builder.Services.AddVersionedApiExplorer(setup =>
     setup.GroupNameFormat = "'v'VVV";
     // フォーマット方法を制御できるようにする
     setup.SubstituteApiVersionInUrl = true;
+});
+
+// JWT認証追加
+var jwtConfiguration = builder.Configuration.GetValue<string>("Jwt:Key");
+var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration!));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    // トークンの検証を行う
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        IssuerSigningKey = securityKey,
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = false,
+    };
 });
 
 var app = builder.Build();
@@ -112,6 +131,8 @@ static void AddService(IServiceCollection service)
     service.AddScoped<ICustomerService, CustomerService>();
     // トークン
     service.AddScoped<ITokenService, TokenService>();
+    // アクティベーション
+    service.AddScoped<IActivationService, ActivationService>();
 }
 
 // Testプロジェクトから参照できるようにする

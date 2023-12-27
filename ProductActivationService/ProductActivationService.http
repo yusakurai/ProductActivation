@@ -6,6 +6,7 @@
 
 ### デバッグ実行
 @baseUrl = http://localhost:5002/api/v1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYWVlMWU0ZC0wZWYzLTRiMzMtODk1ZC0wOGRjMDYxOGIzODEifQ.YgGwI5fO2FFlIicPRuhStPEn6n3AQU39uiMHcBNY0f4
 
 #====================================
 # Customer
@@ -49,6 +50,7 @@ DELETE {{baseUrl}}/customer/4
 ### GET List
 GET {{baseUrl}}/token
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### GET Detail
 GET {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
@@ -76,3 +78,18 @@ content-type: application/json
 
 ### DELETE
 DELETE {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
+
+#====================================
+# Activation
+#====================================
+
+### POST
+POST {{baseUrl}}/activation
+content-type: application/json
+
+{
+  "customerId": 2,
+  "productKey": "S1TMBL5zKMUbx38A",
+  "clientGuid": "3F2504E0-4F89-11D3-9A0C-0305E82C3301",
+  "clientHostName": "host_03"
+}

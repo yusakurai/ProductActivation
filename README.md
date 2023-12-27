@@ -78,6 +78,7 @@ sequenceDiagram
 
 - GUID、期限、無効化フラグをテーブルに保持。検証時に DB アクセスさせて遠隔で JWT を無効化できるようにする。
 - JWT の sub をキーにトークンテーブルに保存。
+- HS256（秘密鍵を共有）と RS256（非対称鍵）はクライアントのみで署名検証する必要がないので前者とする
 
 - JWT ペイロード領域
   ```json
@@ -289,3 +290,10 @@ dotnet add package Microsoft.AspNetCore.Mvc.Testing
 - Controllers ... コントローラーのテスト
 - TestData ... テストデータ
 - Utils ... MSSQLServer の DB 作成・削除などの初期化処理
+
+## JWT 認証
+
+```bash
+# JWT検証関連
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+```
