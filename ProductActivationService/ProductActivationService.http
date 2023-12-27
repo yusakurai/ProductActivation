@@ -6,7 +6,8 @@
 
 ### デバッグ実行
 @baseUrl = http://localhost:5002/api/v1
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYWVlMWU0ZC0wZWYzLTRiMzMtODk1ZC0wOGRjMDYxOGIzODEifQ.YgGwI5fO2FFlIicPRuhStPEn6n3AQU39uiMHcBNY0f4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OTViMWMwMS1kMWM4LTQyZTktMDk4MS0wOGRjMDYxZWNmZWQiLCJyb2xlIjpbIkFkbWluIiwiVXNlciJdfQ.l3gJoq_9j5otxrNpJW7M7XcIjReMsyjHjnT5cOvyK9c
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDM3MTc4NjEsImV4cCI6MTcwMzgwNDI2MCwiaWF0IjoxNzAzNzE3ODYxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDIvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAyLyJ9.SLfvXDRpaw5-UdDjCnQMpao-DbWcLb2jkoRha2KflAo
 
 #====================================
 # Customer
@@ -52,6 +53,11 @@ GET {{baseUrl}}/token
 Accept: application/json
 Authorization: Bearer {{token}}
 
+### GET List
+GET {{baseUrl}}/token
+Accept: application/json
+Authorization: Bearer {{adminToken}}
+
 ### GET Detail
 GET {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
 Accept: application/json
@@ -92,4 +98,17 @@ content-type: application/json
   "productKey": "S1TMBL5zKMUbx38A",
   "clientGuid": "3F2504E0-4F89-11D3-9A0C-0305E82C3301",
   "clientHostName": "host_03"
+}
+
+#====================================
+# AdminLogin
+#====================================
+
+### POST
+POST {{baseUrl}}/adminLogin
+content-type: application/json
+
+{
+  "id": "admin",
+  "password": "admin123"
 }

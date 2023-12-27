@@ -133,6 +133,8 @@ static void AddService(IServiceCollection service)
     service.AddScoped<ITokenService, TokenService>();
     // アクティベーション
     service.AddScoped<IActivationService, ActivationService>();
+    // 管理ログイン
+    service.AddScoped<IAdminLoginService, AdminLoginService>();
 }
 
 // Testプロジェクトから参照できるようにする
