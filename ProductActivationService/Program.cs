@@ -8,9 +8,9 @@ using ProductActivationService.Models;
 using ProductActivationService.Repositories;
 using ProductActivationService.Services;
 using ProductActivationService.Utils.Swagger;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,11 +61,18 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 // JWT認証追加
-var jwtConfiguration = builder.Configuration.GetValue<string>("Jwt:Key");
-var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration!));
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+var jwtKey = builder.Configuration.GetValue<string>("Jwt:Key");
+var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!));
+var adminJwtKey = builder.Configuration.GetValue<string>("AdminJwt:Key");
+var adminSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(adminJwtKey!));
+var adminJwtIssuer = builder.Configuration.GetValue<string>("AdminJwt:Issuer");
+var adminJwtAudience = builder.Configuration.GetValue<string>("AdminJwt:Audience");
+
+builder.Services
+.AddAuthentication("ActivationScheme")
+// アクティベーション用JWT認証
+.AddJwtBearer("ActivationScheme", options =>
 {
-    // トークンの検証を行う
     options.TokenValidationParameters = new TokenValidationParameters
     {
         IssuerSigningKey = securityKey,
@@ -74,6 +81,33 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = false,
         ValidateLifetime = false,
     };
+})
+// 管理ログイン用JWT認証
+.AddJwtBearer("AdminScheme", options =>
+{
+    // トークンの検証を行う
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        IssuerSigningKey = adminSecurityKey,
+        ValidIssuer = adminJwtIssuer,
+        ValidAudience = adminJwtAudience,
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+    };
+});
+
+// 認証ポリシー
+builder.Services.AddAuthorization(options =>
+{
+    // デフォルトのポリシーでは2つの認証スキームを使用することを定義
+    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("ActivationScheme", "AdminScheme");
+    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser().Build();
+
+    // [Authorize(Policy = "Admin")]を使用できるように設定
+    var onlyAdminSchemePolicyBuilder = new AuthorizationPolicyBuilder("AdminScheme");
+    options.AddPolicy("Admin", onlyAdminSchemePolicyBuilder.RequireAuthenticatedUser().Build());
 });
 
 var app = builder.Build();
