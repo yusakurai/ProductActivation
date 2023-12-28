@@ -297,3 +297,5 @@ dotnet add package Microsoft.AspNetCore.Mvc.Testing
 # JWT検証関連
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 ```
+
+- 参考: [How to Use Multiple Authentication Schemes](https://code-maze.com/dotnet-multiple-authentication-schemes/)
