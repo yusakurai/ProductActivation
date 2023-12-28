@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductActivationService.Models;
@@ -47,6 +48,31 @@ namespace ProductActivationService.Controllers.V1
                 return NotFound();
             }
             return model;
+        }
+
+        /// <summary>
+        /// チェックトークン
+        /// </summary>
+        [HttpPost]
+        [Route("check")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TokenDetailModel>> CheckToken()
+        {
+            Logger.LogInformation("Visited:CheckToken");
+            var sub = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (sub == null)
+            {
+                Logger.LogInformation("トークンにsubがありません。");
+                return NotFound();
+            }
+            var model = await Service.GetDetail(sub);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return Ok(model);
         }
 
         /// <summary>

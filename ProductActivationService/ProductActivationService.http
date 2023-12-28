@@ -85,6 +85,11 @@ content-type: application/json
 ### DELETE
 DELETE {{baseUrl}}/token/a13290e0-94a1-4c10-d5d3-08dc04c68853
 
+### POST
+POST {{baseUrl}}/token/check
+content-type: application/json
+Authorization: Bearer {{token}}
+
 #====================================
 # Activation
 #====================================
