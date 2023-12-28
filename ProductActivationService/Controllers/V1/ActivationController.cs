@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductActivationService.Models;
 using ProductActivationService.Services;
@@ -11,6 +12,7 @@ namespace ProductActivationService.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [Produces("application/json")]
+    [AllowAnonymous]
     public class ActivationController(ILogger<ActivationController> logger, IActivationService service) : ControllerBase
     {
         private ILogger<ActivationController> Logger => logger;

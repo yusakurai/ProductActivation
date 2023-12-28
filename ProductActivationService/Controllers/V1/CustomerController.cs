@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductActivationService.Models;
 using ProductActivationService.Requests;
@@ -12,6 +13,8 @@ namespace ProductActivationService.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [Produces("application/json")]
+    [Authorize(Policy = "Admin")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class CustomerController(ILogger<CustomerController> logger, ICustomerService service) : ControllerBase
     {
         private ILogger<CustomerController> Logger => logger;
