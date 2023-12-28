@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ProductActivationService.Utils.Swagger
 {
@@ -10,7 +11,6 @@ namespace ProductActivationService.Utils.Swagger
     /// </summary>
     public sealed class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : IConfigureNamedOptions<SwaggerGenOptions>
     {
-
         private IApiVersionDescriptionProvider Provider => provider;
 
         /// <summary>
@@ -26,6 +26,29 @@ namespace ProductActivationService.Utils.Swagger
                     CreateVersionInfo(description)
                 );
             }
+            //トークン認証用のUIを追加する
+            options.AddSecurityDefinition("アクセストークン", new OpenApiSecurityScheme
+            {
+                Description = "Bearer {{token}} の形で入力してください。",
+                Type = SecuritySchemeType.ApiKey,
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+            });
+            var key = new OpenApiSecurityScheme()
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                },
+                In = ParameterLocation.Header
+            };
+            var requirement = new OpenApiSecurityRequirement
+                    {
+                             { key, new List<string>() }
+                    };
+            options.AddSecurityRequirement(requirement);
         }
 
         /// <summary>
